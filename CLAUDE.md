@@ -21,7 +21,7 @@ Landing page unique, statique, en français, à but de conversion. Un seul objec
 
 ### Ce qu'il ne faut pas faire
 
-- Pas de React, Next, Tailwind, Bootstrap ou librairie d'animation. Le CSS moderne suffit.
+
 - Pas de second CTA concurrent. Un seul call to action sur toute la page, répété, formulé différemment selon la section.
 - Pas de menu de navigation, pas de lien sortant, pas de page secondaire.
 - Pas de carrousel. Pas de pop-up d'exit intent. Pas de compte à rebours animé.
