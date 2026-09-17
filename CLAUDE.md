@@ -16,7 +16,7 @@ Landing page unique, statique, en français, à but de conversion. Un seul objec
 
 
 - **Aucune dépendance runtime** en dehors des Google Fonts.
-- Déploiement statique, Vercel ou Netlify.
+- Déploiement statique, Vercel , le repos est déjà lié.
 - Pas de build step obligatoire. Si un build est ajouté, il doit rester trivial (`npm run build`).
 
 ### Ce qu'il ne faut pas faire
