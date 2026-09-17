@@ -14,7 +14,7 @@ Landing page unique, statique, en français, à but de conversion. Un seul objec
 
 ## Stack et contraintes
 
-- **HTML + CSS + JavaScript vanilla.** Astro accepté si on veut de la componentisation, rien de plus lourd. Une page unique n'a pas besoin d'un framework.
+
 - **Aucune dépendance runtime** en dehors des Google Fonts.
 - Déploiement statique, Vercel ou Netlify.
 - Pas de build step obligatoire. Si un build est ajouté, il doit rester trivial (`npm run build`).
