@@ -1504,15 +1504,28 @@ main:focus{outline:none}
 
   /* ---------- 12. Formulaire de candidature ---------- */
 
-  /* POINT D'INTÉGRATION UNIQUE.
-     À CONFIRMER : destination des leads (CRM ou boîte mail) et outil de prise de rendez-vous.
-     Remplacer le corps de cette fonction par l'appel réel, par exemple :
-       return fetch('/api/candidature', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-         .then(function (res) { if (!res.ok) { throw new Error('Envoi refusé'); } return res; });
-     La fonction doit renvoyer une promesse. Aucun envoi réseau n'est fait dans cette maquette. */
+  /* POINT D'INTÉGRATION UNIQUE : Google Sheets, via un script Apps Script attaché au tableur « Evø · Candidatures ».
+     Marche à suivre et code du script : /integrations/google-sheet/README.md.
+     Coller ci-dessous l'URL de l'application web (elle finit par /exec). Tant qu'elle est vide, rien n'est envoyé (mode maquette). */
+  var LEADS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzMURqe-SHViGTt-HaqvfS3VuhlpRL7HEPho5Eq-TBao-S993oW7qyfsp1UD204aoNJ/exec';
+
   function submitLead(data) {
-    if (window.console && typeof console.debug === 'function') { console.debug('[evo] submitLead (maquette, aucun envoi)', data); }
-    return Promise.resolve({ ok: true });
+    if (!LEADS_ENDPOINT) {
+      if (window.console && typeof console.debug === 'function') { console.debug('[evo] submitLead (maquette, aucun envoi)', data); }
+      return Promise.resolve({ ok: true });
+    }
+    /* text/plain : requête « simple », sans pré-vérification CORS, c'est ce qu'attend Apps Script */
+    return fetch(LEADS_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(data)
+    }).then(function (res) {
+      if (!res.ok) { throw new Error('Envoi refusé'); }
+      return res.json();
+    }).then(function (json) {
+      if (!json || !json.ok) { throw new Error('Envoi refusé'); }
+      return json;
+    });
   }
 
   var form = doc.getElementById('candidater');
@@ -1598,7 +1611,8 @@ main:focus{outline:none}
         chiffre_affaires: form.elements.chiffre_affaires.value,
         blocage: clean(form.elements.blocage.value),
         page: 'maquette-b3-centre',
-        envoye_le: new Date().toISOString()
+        envoye_le: new Date().toISOString(),
+        delai_ms: Date.now() - shownAt /* recontrôlé côté script, anti-spam */
       };
 
       if (submitBtn) { submitBtn.disabled = true; }
