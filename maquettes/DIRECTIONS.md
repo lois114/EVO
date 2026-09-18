@@ -53,6 +53,8 @@ Non repris des patterns d'origine, car contraires à `CLAUDE.md` : menu de navig
 
 Premier écran : sur B1, B2 et B3, le bouton « Candidater à la prochaine promotion » est visible sans scroller (repères mesurés : mobile 360x640 et 390x664, portable 1024x650 et 1366x650). Pour y arriver, le H1 et le sous-titre sont plus compacts, l'accroche-problème passe sous le premier écran (elle ouvre la liste des bénéfices) et, sur mobile, le badge promotion de B2 et B3 passe sous le CTA. Aucun texte du brief n'est supprimé.
 
+Outil de maquette : sur B1, B2 et B3, une pastille à côté du logo (`outil-couleur.js`) change en direct la couleur du haut de page, header et hero seulement. Teintes de la charte (vert profond, vert doux, encre, papier, papier clair) plus un sélecteur libre, texte clair ou foncé choisi automatiquement selon le contraste, choix mémorisé et partagé entre les 3 variantes. À retirer avant production : le fichier et la balise `<script>` en bas de chaque maquette.
+
 Photos : les 3 visuels de `/assets/img` (`hero-atelier`, `hero-echange`, `hero-reunion`, en WebP avec repli JPG) sont des **photos provisoires** Unsplash sous licence libre, servies en local. Elles sont décoratives (`alt=""`) et à remplacer par de vraies photos Evø avant publication.
 
 ## Règles communes aux 3 maquettes

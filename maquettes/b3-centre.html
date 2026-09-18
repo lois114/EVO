@@ -176,7 +176,7 @@ main:focus{outline:none}
 .evo-hero > .evo-wrap{position:relative;z-index:1}
 .evo-hero__main{display:flex;flex-direction:column;align-items:center;max-width:60rem;margin-inline:auto;text-align:center}
 .evo-hero__badge{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.375rem .75rem;margin-bottom:clamp(1.5rem,3vw,2rem);padding:.375rem 1rem .375rem .375rem;border:1px solid var(--on-deep-line);border-radius:var(--radius);background:var(--glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:var(--fs-small);font-weight:500;line-height:1.4}
-.evo-hero__badge-tag{padding:.1875rem .625rem;border-radius:999px;background:var(--on-deep);color:var(--on-gold);font-family:var(--font-mono);font-size:.8125rem;font-weight:500;letter-spacing:.02em}
+.evo-hero__badge-tag{padding:.1875rem .625rem;border-radius:999px;background:var(--on-deep);color:var(--deep);font-family:var(--font-mono);font-size:.8125rem;font-weight:500;letter-spacing:.02em}
 @media (min-width:600px){.evo-hero__badge{border-radius:999px}}
 .evo-hero__kicker{font-family:var(--font-mono);font-size:clamp(.875rem,1.2vw,1rem);line-height:1.55;color:var(--on-deep);max-width:34em}
 .evo-hero__title{margin-top:clamp(1.25rem,2.5vw,2rem);font-size:var(--fs-h1);font-weight:700;line-height:1.02;letter-spacing:-.04em;max-width:12.5em}
@@ -1616,5 +1616,7 @@ main:focus{outline:none}
   }
 })();
 </script>
+<!-- Outil de maquette : pastille de couleur du haut de page. À retirer avant production (cette ligne + outil-couleur.js). -->
+<script src="outil-couleur.js" defer></script>
 </body>
 </html>
