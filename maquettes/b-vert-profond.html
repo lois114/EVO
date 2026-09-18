@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Evø Vert profond</title>
+<meta name="description" content="Evø, fonds d'investissement pour TPE et PME : 6 mois d'accompagnement pour structurer votre entreprise, puis une décision d'entrée au capital. Candidatez à la prochaine promotion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   Evø · Maquette B « Vert profond »
+   Fichier autonome. Aucune couleur en dur hors du bloc tokens.
+   ========================================================= */
+
+/* ---------- Tokens (spec commune, copiés tels quels) ---------- */
+:root{
+  --evo-green:#2C5A48; --evo-green-soft:#3C6E5A; --evo-gold:#D89B3D;
+  --evo-paper:#F1EBE1; --evo-paper-2:#FAF6F0; --evo-ink:#26231E; --evo-muted:#7A736A;
+  --bg:var(--evo-paper); --surface:var(--evo-paper-2); --text:var(--evo-ink); --text-muted:var(--evo-muted);
+  --line:rgba(38,35,30,.14); --line-strong:rgba(44,90,72,.30);
+  --card-shadow:0 1px 0 rgba(38,35,30,.05), 0 12px 32px -22px rgba(38,35,30,.45);
+  /* tokens ajoutés pour les sections vertes, constants dans les 2 thèmes */
+  --deep:#2C5A48; --deep-2:#3C6E5A; --on-deep:#F1EBE1; --on-deep-muted:rgba(241,235,225,.74); --on-deep-line:rgba(241,235,225,.18);
+  --on-gold:#26231E;
+  --font-sans:'DM Sans','Segoe UI',Helvetica,Arial,sans-serif;
+  --font-mono:'JetBrains Mono','SFMono-Regular',Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1E1B17; --surface:#262320; --text:#F1EBE1; --text-muted:#A79E93;
+    --line:rgba(241,235,225,.14); --line-strong:rgba(216,155,61,.32);
+    --evo-green:#5E9B83;
+    --card-shadow:0 1px 0 rgba(0,0,0,.2), 0 12px 32px -22px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1E1B17; --surface:#262320; --text:#F1EBE1; --text-muted:#A79E93;
+  --line:rgba(241,235,225,.14); --line-strong:rgba(216,155,61,.32);
+  --evo-green:#5E9B83;
+  --card-shadow:0 1px 0 rgba(0,0,0,.2), 0 12px 32px -22px rgba(0,0,0,.8);
+}
+
+/* ---------- Tokens dérivés : uniquement des mélanges de tokens, aucune valeur en dur ---------- */
+:root{
+  color-scheme:light dark;
+  --text-soft:var(--text);            /* texte secondaire lisible (AA) sur papier */
+  --on-deep-soft:var(--on-deep);      /* texte secondaire lisible (AA) sur vert */
+  --glyph:var(--on-deep-line);        /* ø géant en filigrane */
+  --halo:var(--on-deep-line);         /* halo de la carte Greg */
+  --btn-hover:var(--evo-gold);
+  --header-paper:var(--bg);
+  --ring:var(--text);                 /* anneau de focus, redéfini sur fond vert */
+
+  --header-h:4.25rem;
+  --gutter:clamp(1.25rem,5vw,3rem);
+  --radius:20px;
+  --radius-sm:12px;
+
+  --fs-h1:clamp(2.375rem,6.6vw,5.5rem);
+  --fs-h2:clamp(2rem,4.8vw,3.75rem);
+  --fs-h2-xl:clamp(2.25rem,6vw,4.75rem);
+  --fs-h3:clamp(1.1875rem,1.7vw,1.375rem);
+  --fs-statement:clamp(1.5rem,3.2vw,2.625rem);
+  --fs-lead:clamp(1.125rem,1.55vw,1.375rem);
+  --fs-body:1.0625rem;
+  --fs-small:.9375rem;
+  --fs-label:.75rem;
+}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+@supports (color:color-mix(in srgb, currentColor 50%, transparent)){
+  :root{
+    --text-soft:color-mix(in srgb, var(--text) 78%, var(--bg));
+    --on-deep-soft:color-mix(in srgb, var(--on-deep) 86%, var(--deep));
+    --glyph:color-mix(in srgb, var(--on-deep) 10%, transparent);
+    --halo:color-mix(in srgb, var(--evo-gold) 16%, transparent);
+    --btn-hover:color-mix(in srgb, var(--evo-gold) 88%, var(--on-gold));
+    --header-paper:color-mix(in srgb, var(--bg) 92%, transparent);
+  }
+}
+
+/* ---------- Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 1.5rem)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-sans);font-size:var(--fs-body);line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:clip}
+[hidden]{display:none !important}
+h1,h2,h3,h4,p,ul,ol,dl,dd,figure,blockquote{margin:0}
+ul,ol{padding:0;list-style:none}
+h1,h2,h3,h4{text-wrap:balance}
+p{text-wrap:pretty}
+strong{font-weight:700}
+svg{display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+::selection{background:var(--evo-gold);color:var(--on-gold)}
+:focus-visible{outline:2px solid var(--ring);outline-offset:3px}
+
+.evo-sr{position:absolute !important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.evo-sprite{position:absolute;width:0;height:0;overflow:hidden}
+.evo-skip{position:absolute;left:var(--gutter);top:-6rem;z-index:100;display:inline-flex;align-items:center;min-height:2.75rem;padding:.5rem 1rem;border-radius:999px;background:var(--evo-gold);color:var(--on-gold);font-weight:700;text-decoration:none}
+.evo-skip:focus{top:calc(env(safe-area-inset-top, 0px) + .75rem)}
+main:focus{outline:none}
+
+.evo-wrap{width:100%;max-width:calc(1240px + 2 * var(--gutter));margin-inline:auto;padding-left:max(var(--gutter), env(safe-area-inset-left, 0px));padding-right:max(var(--gutter), env(safe-area-inset-right, 0px))}
+.evo-section{padding-block:clamp(4.5rem,10vw,9rem);border-top:1px solid var(--line)}
+.evo-section--surface{background:var(--surface)}
+.evo-deep{background:var(--deep);color:var(--on-deep);--ring:var(--on-deep);border-top:0}
+
+.evo-o{color:var(--evo-gold)}
+.evo-wordmark{font-weight:700;font-size:1.625rem;letter-spacing:-.03em;line-height:1}
+.evo-label{display:block;font-family:var(--font-mono);font-size:var(--fs-label);font-weight:500;line-height:1.4;letter-spacing:.08em;text-transform:uppercase;color:var(--text-soft)}
+.evo-deep .evo-label{color:var(--on-deep)}
+.evo-tbc{display:inline-block;padding:.1em .5em;border:1px dashed currentColor;border-radius:6px;font-family:var(--font-mono);font-size:.8125em;font-weight:500;line-height:1.3;white-space:nowrap}
+.evo-ico{width:1.25rem;height:1.25rem;flex:none}
+
+.evo-h2{font-size:var(--fs-h2);font-weight:700;line-height:1.04;letter-spacing:-.03em;max-width:17em}
+.evo-h2--xl{font-size:var(--fs-h2-xl);line-height:1.02;letter-spacing:-.035em;max-width:14em}
+.evo-h3{font-size:var(--fs-h3);font-weight:700;line-height:1.25;letter-spacing:-.01em}
+.evo-lead{font-size:var(--fs-lead);line-height:1.5;max-width:40em}
+.evo-prose{max-width:65ch}
+.evo-prose p + p{margin-top:1.15em}
+.evo-statement{font-size:var(--fs-statement);font-weight:500;line-height:1.18;letter-spacing:-.02em;max-width:25em;text-wrap:balance}
+.evo-statement--bold{font-weight:700}
+
+/* ---------- Bouton unique ---------- */
+.evo-btn{display:inline-flex;align-items:center;justify-content:center;gap:.625rem;min-height:3.375rem;padding:.75rem 1.625rem;border:0;border-radius:999px;background:var(--evo-gold);color:var(--on-gold);font-family:var(--font-sans);font-size:1.0625rem;font-weight:700;line-height:1.2;text-align:center;text-decoration:none;cursor:pointer;transition:background-color .2s ease}
+.evo-btn:hover{background:var(--btn-hover)}
+.evo-btn svg{width:1rem;height:1rem;flex:none;transition:transform .2s ease}
+.evo-btn:hover svg{transform:translateX(3px)}
+.evo-btn--sm{min-height:2.75rem;padding:.5rem 1.125rem;font-size:.9375rem}
+.evo-btn[disabled]{opacity:.7;cursor:progress}
+.evo-btn .evo-tbc{font-size:.75em}
+
+/* ---------- Bloc CTA répété (aligné à gauche partout) ---------- */
+.evo-cta{display:flex;flex-direction:column;align-items:flex-start;gap:1rem;margin-top:clamp(3rem,6vw,5rem)}
+.evo-cta__sub{font-size:var(--fs-body);font-weight:500}
+.evo-cta__reassure{font-size:var(--fs-small);color:var(--text-soft);max-width:36em}
+.evo-deep .evo-cta__reassure{color:var(--on-deep-soft)}
+@media (max-width:479px){.evo-cta .evo-btn{width:100%}}
+
+/* ---------- Apparition au scroll (contenu visible par défaut) ---------- */
+.js .evo-reveal.is-armed{opacity:0;transform:translateY(12px)}
+.js .evo-reveal.is-armed.is-in{opacity:1;transform:none;transition:opacity .6s ease, transform .6s ease}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .evo-reveal.is-armed{opacity:1;transform:none}
+  *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important;animation-iteration-count:1 !important}
+}
+
+/* =========================================================
+   SECTION 0 · Header
+   ========================================================= */
+.evo-header{position:sticky;top:env(safe-area-inset-top, 0px);z-index:50;background:var(--deep);color:var(--on-deep);border-bottom:1px solid var(--on-deep-line);--ring:var(--on-deep);transition:background-color .25s ease, color .25s ease, border-color .25s ease}
+.evo-header__inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:var(--header-h);transition:min-height .25s ease}
+.evo-header.is-past-hero{background:var(--header-paper);color:var(--text);border-bottom-color:var(--line);--ring:var(--text);-webkit-backdrop-filter:saturate(1.2) blur(10px);backdrop-filter:saturate(1.2) blur(10px)}
+.evo-header.is-past-hero .evo-header__inner{min-height:3.75rem}
+
+/* =========================================================
+   SECTION 1 · Hero
+   ========================================================= */
+.evo-hero{position:relative;overflow:hidden;padding-block:clamp(2.5rem,5vw,4.5rem) clamp(1.25rem,2.5vw,2rem)}
+.evo-glyph{position:absolute;z-index:0;top:-.12em;right:-.14em;font-family:var(--font-sans);font-weight:700;font-size:clamp(18rem,45vw,40rem);line-height:1;color:var(--glyph);pointer-events:none;-webkit-user-select:none;user-select:none}
+.evo-hero > .evo-wrap{position:relative;z-index:1}
+.evo-hero__main{max-width:none}
+.evo-hero__kicker{font-family:var(--font-mono);font-size:clamp(.875rem,1.2vw,1rem);line-height:1.55;color:var(--on-deep);max-width:34em}
+.evo-hero__title{margin-top:clamp(1.25rem,2.5vw,2rem);font-size:var(--fs-h1);font-weight:700;line-height:1.02;letter-spacing:-.04em;max-width:12.5em}
+.evo-hero__sub{margin-top:clamp(1.5rem,3vw,2.25rem);font-size:clamp(1.1875rem,1.7vw,1.5rem);line-height:1.45;color:var(--on-deep-muted);max-width:36em}
+.evo-hero__sub strong{color:var(--on-deep)}
+.evo-hero .evo-cta{margin-top:clamp(2rem,4vw,3rem)}
+
+.evo-benefits{display:grid;margin-top:clamp(3rem,7vw,6rem);border-top:1px solid var(--on-deep-line)}
+.evo-benefit{display:grid;grid-template-columns:1.5rem 1fr;gap:.875rem;padding-block:1.5rem;border-bottom:1px solid var(--on-deep-line)}
+.evo-benefit .evo-ico{width:1.5rem;height:1.5rem;margin-top:.15rem;color:var(--evo-gold)}
+.evo-benefit__title{display:block;font-size:1.25rem;line-height:1.25;letter-spacing:-.01em}
+.evo-benefit__text{display:block;margin-top:.5rem;font-size:1rem;line-height:1.55;color:var(--on-deep-soft)}
+.evo-hero__trust{display:grid;gap:1rem;padding-block:1.75rem}
+.evo-hero__trust p{max-width:34em}
+.evo-hero__urgency{padding-block:1rem;border-block:1px solid var(--on-deep-line);font-family:var(--font-mono);font-size:clamp(.8125rem,1.1vw,.9375rem);line-height:1.7;letter-spacing:.01em}
+@media (min-width:860px){
+  .evo-benefits{grid-template-columns:repeat(3,1fr)}
+  .evo-benefit{padding:2rem 2rem 2.25rem;border-left:1px solid var(--on-deep-line)}
+  .evo-benefit:first-child{padding-left:0;border-left:0}
+  .evo-benefit:last-child{padding-right:0}
+  .evo-hero__trust{grid-template-columns:1fr 1fr;gap:2rem 4rem;padding-block:2.25rem}
+}
+
+/* ---------- Bandeau défilant (pattern Marquee) ---------- */
+.evo-marquee{position:relative;overflow:hidden;border-block:1px solid var(--line);background:var(--bg)}
+.evo-marquee__track{display:flex;width:max-content;animation:evo-marquee 56s linear infinite}
+.evo-marquee:hover .evo-marquee__track,.evo-marquee.is-paused .evo-marquee__track{animation-play-state:paused}
+.evo-marquee__group{display:flex;flex:none;align-items:center;padding-block:clamp(1rem,2vw,1.5rem);font-family:var(--font-mono);font-size:clamp(1.375rem,3.2vw,2.5rem);font-weight:500;line-height:1.2;letter-spacing:-.02em;white-space:nowrap}
+.evo-marquee__group li{flex:none}
+.evo-marquee__sep{padding-inline:clamp(1.25rem,3vw,2.5rem);font-family:var(--font-sans);font-weight:700;color:var(--evo-gold)}
+.evo-marquee__toggle{display:none;position:absolute;right:0;top:0;bottom:0;width:3.25rem;align-items:center;justify-content:center;padding:0;border:0;border-left:1px solid var(--line);background:var(--bg);color:var(--text);cursor:pointer}
+.evo-marquee__toggle:focus-visible{outline-offset:-4px}
+.evo-marquee__toggle svg{width:1rem;height:1rem}
+.evo-marquee__toggle .evo-marquee__play,.evo-marquee__toggle[aria-pressed="true"] .evo-marquee__pause{display:none}
+.evo-marquee__toggle[aria-pressed="true"] .evo-marquee__play{display:block}
+.js .evo-marquee__toggle{display:flex}
+@keyframes evo-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .evo-marquee__track{width:auto;animation:none;justify-content:center}
+  .evo-marquee__group{flex:0 1 auto;flex-wrap:wrap;justify-content:center;row-gap:.5rem;white-space:normal;padding-inline:var(--gutter)}
+  .evo-marquee__group[aria-hidden="true"]{display:none}
+  .evo-marquee__group .evo-marquee__sep:last-child{display:none}
+  .js .evo-marquee__toggle{display:none}
+}
+
+/* =========================================================
+   SECTION 2 · Problème puis comparaison
+   ========================================================= */
+.evo-problem{border-top:0}
+.evo-problem__intro{display:grid;gap:clamp(2rem,4vw,3rem)}
+.evo-problem__body{font-size:var(--fs-lead);line-height:1.55}
+@media (min-width:1024px){
+  .evo-problem__intro{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(3rem,6vw,6rem);align-items:start}
+  .evo-problem__body{padding-top:.5rem}
+}
+
+.evo-stats{display:grid;margin-top:clamp(3.5rem,7vw,6rem);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.evo-stat{position:relative;container-type:inline-size;display:flex;flex-direction:column;gap:1rem;padding:clamp(1.5rem,3vw,2.25rem) 1.5rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.evo-stat__num{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 .2em;font-family:var(--font-mono);font-weight:700;font-size:3.25rem;font-size:clamp(3rem,20cqi,4.75rem);line-height:1;letter-spacing:-.06em;color:var(--evo-green);font-variant-numeric:tabular-nums}
+.evo-stat__unit{font-size:.4em;font-weight:500;letter-spacing:-.02em}
+.evo-stat__text{font-size:1rem;line-height:1.45;max-width:22em}
+.evo-stat--pivot{background:var(--deep);color:var(--on-deep)}
+.evo-stat--pivot .evo-stat__num{color:var(--on-deep)}
+.evo-stat__mark{position:absolute;top:1rem;right:1.25rem;font-weight:700;font-size:1.5rem;line-height:1;color:var(--evo-gold)}
+@media (min-width:600px){.evo-stats{grid-template-columns:1fr 1fr}}
+@media (min-width:1200px){.evo-stats{grid-template-columns:repeat(4,1fr)}.evo-stat{min-height:17rem;justify-content:space-between}}
+
+.evo-pivot{margin-top:clamp(3.5rem,8vw,7rem)}
+.evo-pivot__mark{display:block;margin-bottom:1rem;font-weight:700;font-size:2rem;line-height:1;color:var(--evo-gold)}
+.evo-pivot .evo-statement{max-width:none;font-size:clamp(1.625rem,3.8vw,3.125rem)}
+
+/* ---------- Comparatif (pattern Us vs Them) ---------- */
+.evo-compare{margin-top:clamp(4rem,9vw,8rem);padding-top:clamp(3rem,6vw,5rem);border-top:1px solid var(--line)}
+.evo-compare__grid{display:grid;gap:1rem}
+.evo-vs{border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;background:var(--bg);color:var(--text-soft)}
+.evo-vs__head{display:flex;flex-direction:column;justify-content:flex-end;gap:.5rem;padding-bottom:1.25rem}
+.evo-vs__name{font-size:clamp(1.375rem,2vw,1.75rem);font-weight:700;line-height:1.15;letter-spacing:-.02em}
+.evo-vs__row{padding-block:.9375rem;border-top:1px solid var(--line)}
+.evo-vs__row dt{margin-bottom:.375rem}
+.evo-vs__row dd{display:grid;grid-template-columns:1.25rem 1fr;gap:.625rem;align-items:start;font-size:1rem;line-height:1.4}
+.evo-vs__row .evo-ico{margin-top:.08rem;color:var(--text-muted)}
+.evo-vs--evo{order:-1;border-color:var(--deep);background:var(--deep);color:var(--on-deep);box-shadow:var(--card-shadow)}
+.evo-vs--evo .evo-label{color:var(--on-deep)}
+.evo-vs--evo .evo-vs__row{border-top-color:var(--on-deep-line)}
+.evo-vs--evo .evo-vs__row dd{font-size:1.0625rem;font-weight:500}
+.evo-vs--evo .evo-vs__row .evo-ico{color:var(--evo-gold)}
+.evo-vs--evo .evo-vs__name{font-size:clamp(1.75rem,2.6vw,2.25rem);letter-spacing:-.03em}
+@media (min-width:700px){
+  .evo-compare__grid{grid-template-columns:1fr 1fr;gap:0 1rem}
+  .evo-vs--evo{grid-column:1 / -1;margin-bottom:1rem}
+  .evo-vs--evo .evo-vs__list{display:grid;grid-template-columns:1fr 1fr;column-gap:2rem}
+}
+@media (min-width:1024px){
+  .evo-compare__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.14fr);padding-block:1.25rem}
+  .evo-vs--evo{order:0;grid-column:auto;margin-block:-1.25rem;padding:2.75rem 2rem}
+  .evo-vs--evo .evo-vs__list{display:block}
+}
+@supports (grid-template-rows:subgrid){
+  @media (min-width:700px){
+    .evo-vs:not(.evo-vs--evo){grid-row:2 / span 8;display:grid;grid-template-rows:subgrid;row-gap:0}
+    .evo-vs:not(.evo-vs--evo) .evo-vs__list{grid-row:span 7;display:grid;grid-template-rows:subgrid;row-gap:0}
+  }
+  @media (min-width:1024px){
+    .evo-vs:not(.evo-vs--evo),.evo-vs--evo{grid-row:1 / span 8;display:grid;grid-template-rows:subgrid;row-gap:0}
+    .evo-vs--evo .evo-vs__list{grid-row:span 7;display:grid;grid-template-columns:none;grid-template-rows:subgrid;row-gap:0}
+  }
+}
+.evo-compare__close{margin-top:clamp(3rem,7vw,6rem)}
+
+/* =========================================================
+   SECTION 3 · Parcours (sticky scroll + timeline)
+   ========================================================= */
+.evo-process__layout{display:grid;gap:clamp(3rem,6vw,4rem)}
+.evo-process__aside .evo-h2{font-size:clamp(2rem,3.7vw,3rem)}
+.evo-process__aside .evo-lead{margin-top:1.25rem}
+.evo-process__note{margin-top:1.5rem;font-size:var(--fs-lead);line-height:1.4;max-width:26em}
+@media (min-width:1024px){
+  .evo-process__layout{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(3rem,7vw,7rem);align-items:start}
+}
+@media (min-width:1024px) and (min-height:760px){
+  .evo-process__aside{position:sticky;top:calc(env(safe-area-inset-top, 0px) + var(--header-h) + 1.5rem)}
+}
+
+/* Frise 3 temps (pattern Partition Bar) */
+.evo-frise-box{container-type:inline-size;margin-top:clamp(1.75rem,3vw,2.5rem)}
+.evo-frise{display:flex;flex-direction:column;gap:4px;font-family:var(--font-mono);font-size:var(--fs-label);font-weight:700;line-height:1.35;letter-spacing:.08em;text-transform:uppercase}
+.evo-frise__seg{display:flex;align-items:center;min-height:2.75rem;padding:.625rem 1rem;border-radius:10px}
+.evo-frise__seg--start{border:1px solid var(--line-strong);color:var(--text)}
+.evo-frise__seg--main{min-height:4.75rem;background:var(--deep);color:var(--on-deep)}
+.evo-frise__seg--end{background:var(--evo-gold);color:var(--on-gold)}
+@container (min-width:600px){
+  .evo-frise{flex-direction:row}
+  .evo-frise__seg{min-height:4.5rem;flex:1 1 0}
+  .evo-frise__seg--main{flex-grow:2.4;min-height:4.5rem}
+  .evo-frise__seg--end{flex-grow:1.5}
+}
+
+/* Timeline (pattern How It Works Timeline) */
+.evo-steps{position:relative;isolation:isolate;--evo-progress:1}
+.evo-steps::before,.evo-steps::after{content:"";position:absolute;z-index:0;left:calc(1.5rem - 1px);top:1.5rem;bottom:1.5rem;width:2px}
+.evo-steps::before{background:var(--line)}
+.evo-steps::after{background:var(--evo-green);transform-origin:top center;transform:scaleY(var(--evo-progress))}
+.evo-step{position:relative;display:grid;grid-template-columns:3rem minmax(0,1fr);gap:1rem;padding-bottom:clamp(2.5rem,5vw,3.75rem)}
+.evo-step:last-child{padding-bottom:0}
+.evo-step:last-child::before{content:"";position:absolute;z-index:1;left:0;top:3rem;bottom:0;width:3rem;background:var(--bg)}
+.evo-step__dot{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:3rem;height:3rem;border:2px solid var(--evo-green);border-radius:50%;background:var(--bg);color:var(--evo-green);font-family:var(--font-mono);font-size:1rem;font-weight:700;line-height:1;transition:background-color .3s ease, color .3s ease}
+.evo-step.is-reached .evo-step__dot{background:var(--evo-green);color:var(--bg)}
+.evo-step__dot--gold,.evo-step.is-reached .evo-step__dot--gold{border-color:var(--evo-gold);background:var(--evo-gold);color:var(--on-gold);font-family:var(--font-sans);font-size:1.375rem}
+.evo-step__body{position:relative;z-index:2;padding-top:.55rem}
+.evo-step__body .evo-h3{margin-top:.375rem;font-size:clamp(1.375rem,2vw,1.625rem);letter-spacing:-.02em}
+.evo-step__body > p{margin-top:.875rem;max-width:60ch}
+.evo-step__meta{display:grid;gap:.75rem;margin-top:1.25rem}
+.evo-step__meta p{padding:.875rem 1rem;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);font-size:1rem;line-height:1.45}
+.evo-step__meta .evo-label{margin-bottom:.25rem}
+.evo-step__deliver .evo-label{color:var(--evo-green)}
+@media (min-width:640px){
+  .evo-step{gap:1.75rem}
+  .evo-step__meta--two{grid-template-columns:1fr 1fr}
+}
+.evo-step--final .evo-step__body{padding:clamp(1.5rem,3vw,2.25rem);border-radius:var(--radius);background:var(--deep);color:var(--on-deep);box-shadow:var(--card-shadow)}
+.evo-step--final .evo-label{color:var(--on-deep)}
+.evo-step--final .evo-step__body > p{font-size:var(--fs-lead);line-height:1.5}
+.evo-process__close{display:grid;gap:clamp(1.5rem,3vw,2.5rem);margin-top:clamp(3.5rem,8vw,7rem);padding-top:clamp(3rem,6vw,5rem);border-top:1px solid var(--line)}
+
+/* =========================================================
+   SECTION 4 · Équipe (bento)
+   ========================================================= */
+.evo-team__head .evo-lead{margin-top:1.5rem}
+.evo-bento{display:grid;gap:1rem;margin-top:clamp(3rem,6vw,5rem)}
+.evo-greg{position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:space-between;gap:3rem;min-height:20rem;padding:clamp(1.75rem,3.5vw,3rem);border-radius:var(--radius);background:var(--deep);color:var(--on-deep);box-shadow:var(--card-shadow)}
+.evo-greg__glyph{position:absolute;z-index:-1;right:-.1em;bottom:-.2em;font-weight:700;font-size:clamp(15rem,26vw,24rem);line-height:1;color:var(--glyph);pointer-events:none;-webkit-user-select:none;user-select:none}
+.evo-greg::after{content:"";position:absolute;z-index:-1;inset:0;border-radius:inherit;background:radial-gradient(26rem circle at var(--mx,50%) var(--my,50%), var(--halo), transparent 65%);opacity:0;transition:opacity .35s ease;pointer-events:none}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){.evo-greg:hover::after{opacity:1}}
+.evo-greg__top{display:flex;align-items:center;gap:.875rem}
+.evo-greg .evo-label{color:var(--on-deep)}
+.evo-avatar{display:flex;align-items:center;justify-content:center;flex:none;width:2.75rem;height:2.75rem;border:1px dashed var(--line-strong);border-radius:50%;font-weight:700;font-size:1.25rem;line-height:1;color:var(--evo-green)}
+.evo-avatar--deep{border:1px solid var(--on-deep-line);font-family:var(--font-mono);font-size:1rem;color:var(--on-deep)}
+.evo-greg__text{margin-top:1rem;font-size:clamp(1.25rem,2.1vw,1.75rem);font-weight:500;line-height:1.3;letter-spacing:-.015em;max-width:24em}
+.evo-domain{display:flex;flex-direction:column;gap:.75rem;min-height:15.5rem;padding:1.5rem;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--card-shadow)}
+.evo-domain__num{font-family:var(--font-mono);font-size:.875rem;font-weight:700;letter-spacing:.04em;color:var(--evo-green)}
+.evo-domain__text{font-size:1rem;line-height:1.5;color:var(--text-soft)}
+.evo-domain__who{display:flex;align-items:center;gap:.75rem;margin-top:auto;padding-top:1rem}
+.evo-domain__who .evo-label{letter-spacing:.04em;text-transform:none;font-size:.8125rem}
+@media (min-width:640px){
+  .evo-bento{grid-template-columns:1fr 1fr}
+  .evo-greg{grid-column:1 / -1}
+}
+@media (min-width:1100px){
+  .evo-bento{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .evo-greg{grid-column:span 2;grid-row:span 2}
+}
+.evo-team__close{margin-top:clamp(3.5rem,8vw,7rem)}
+.evo-testimonials{display:grid;gap:1rem;margin-top:clamp(3rem,6vw,5rem)}
+
+/* =========================================================
+   SECTION 5 · Avant / Après à cocher
+   ========================================================= */
+.evo-ba__legend{margin-top:1.5rem;font-family:var(--font-mono);font-size:.875rem;color:var(--text-soft)}
+.evo-ba{margin-top:clamp(2.5rem,5vw,4rem)}
+.evo-ba__heads{display:none}
+.evo-ba__row{position:relative;display:grid;gap:.75rem;margin-bottom:.75rem;padding:1.125rem 1.25rem;border:1px solid var(--line);border-radius:16px;background:var(--bg)}
+.evo-ba__tag{display:block;margin-bottom:.25rem;font-family:var(--font-mono);font-size:var(--fs-label);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-soft)}
+.evo-ba__before{color:var(--text-soft)}
+.evo-ba__before-text{text-decoration-thickness:1.5px;transition:opacity .25s ease}
+.evo-ba__after{padding-top:.75rem;border-top:1px solid var(--line)}
+.evo-ba__after .evo-ba__tag{color:var(--evo-green)}
+.evo-check{position:relative}
+.evo-check input{position:absolute;left:0;top:50%;width:1.625rem;height:1.625rem;margin:-.8125rem 0 0;opacity:0;cursor:pointer}
+.evo-check label{position:relative;display:flex;align-items:center;min-height:2.75rem;padding-left:2.5rem;font-weight:500;line-height:1.35;cursor:pointer}
+.evo-check label::before{content:"";position:absolute;left:0;top:50%;width:1.625rem;height:1.625rem;margin-top:-.8125rem;border:2px solid var(--evo-green);border-radius:5px;background:var(--surface);transition:background-color .2s ease, border-color .2s ease}
+.evo-check label::after{content:"";position:absolute;left:.58rem;top:50%;width:.5rem;height:.9rem;margin-top:-.62rem;border:solid var(--evo-gold);border-width:0 3px 3px 0;transform:rotate(45deg) scale(0);transition:transform .18s ease}
+.evo-check input:checked + label::before{border-color:var(--deep);background:var(--deep)}
+.evo-check input:checked + label::after{transform:rotate(45deg) scale(1)}
+.evo-check input:focus-visible + label::before{outline:2px solid var(--ring);outline-offset:3px}
+.evo-ba__row.is-checked .evo-ba__before-text{text-decoration-line:line-through;opacity:.75}
+.evo-ba__row:has(input:checked) .evo-ba__before-text{text-decoration-line:line-through;opacity:.75}
+@media (min-width:768px){
+  .evo-ba__heads{display:grid;grid-template-columns:1fr 1fr;padding-bottom:.875rem}
+  .evo-ba__heads span:last-child{padding-left:2.5rem;color:var(--evo-green)}
+  .evo-ba__row{grid-template-columns:1fr 1fr;gap:0;margin:0;padding:0;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent;font-size:clamp(1.0625rem,1.5vw,1.25rem)}
+  .evo-ba__row:last-child{border-bottom:1px solid var(--line)}
+  .evo-ba__row .evo-ba__tag{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+  .evo-ba__before{display:flex;align-items:center;padding:1.125rem 2rem 1.125rem 0}
+  .evo-ba__after{padding:.75rem 0 .75rem 2.5rem;border-top:0;border-left:1px solid var(--line)}
+}
+.evo-ba__close{margin-top:clamp(2.5rem,5vw,4rem)}
+
+/* =========================================================
+   SECTION 6 · Objections
+   ========================================================= */
+.evo-objections{display:grid;gap:1rem;margin-top:clamp(3rem,6vw,5rem)}
+.evo-objection{display:grid;gap:1.5rem;padding:clamp(1.5rem,3.5vw,3rem);border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);box-shadow:var(--card-shadow)}
+.evo-objection__num{display:block;font-family:var(--font-mono);font-size:.875rem;font-weight:700;line-height:1.6;letter-spacing:.04em;color:var(--evo-green)}
+.evo-objection__think .evo-label{margin-top:1rem}
+.evo-objection__quote{margin-top:.625rem;font-size:clamp(1.5rem,2.8vw,2.25rem);font-style:italic;font-weight:400;line-height:1.2;letter-spacing:-.02em}
+.evo-objection__real{padding-top:1.5rem;border-top:1px solid var(--line)}
+.evo-objection__real p{margin-top:.625rem;max-width:62ch}
+@media (min-width:900px){
+  .evo-objection{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(2.5rem,5vw,5rem)}
+  .evo-objection__real{padding-top:0;padding-left:clamp(2rem,4vw,4rem);border-top:0;border-left:1px solid var(--line)}
+  .evo-objection__real .evo-label{margin-top:2.4rem}
+}
+
+/* =========================================================
+   SECTION 7 · Récapitulatif, CTA final, formulaire
+   ========================================================= */
+.evo-final{position:relative;overflow:hidden}
+.evo-final .evo-glyph{top:-.16em;right:-.1em;font-size:clamp(13rem,30vw,26rem)}
+.evo-final > .evo-wrap{position:relative;z-index:1}
+.evo-final__lead{font-size:var(--fs-lead);line-height:1.5;max-width:30em}
+.evo-final .evo-h2--xl{margin-top:clamp(1.5rem,3vw,2.5rem)}
+.evo-final__terms{margin-top:clamp(1.5rem,3vw,2.5rem);font-size:var(--fs-lead);font-weight:500;line-height:1.45;max-width:32em}
+.evo-final__list{display:grid;margin-top:clamp(2.5rem,6vw,4.5rem);border-top:1px solid var(--on-deep-line)}
+.evo-final__list li{display:grid;grid-template-columns:1.5rem 1fr;gap:.875rem;padding-block:1.375rem;border-bottom:1px solid var(--on-deep-line);font-size:1.0625rem;line-height:1.45}
+.evo-final__list .evo-ico{width:1.5rem;height:1.5rem;color:var(--evo-gold)}
+.evo-final__list strong{display:block;font-size:1.1875rem;line-height:1.3}
+.evo-final__list .evo-final__more{display:block;margin-top:.25rem;color:var(--on-deep-soft)}
+@media (min-width:860px){
+  .evo-final__list{grid-template-columns:1fr 1fr;column-gap:clamp(2rem,5vw,5rem)}
+  .evo-final__list li:last-child{grid-column:1 / -1}
+}
+
+.evo-apply{display:grid;gap:clamp(1.75rem,4vw,3.5rem);margin-top:clamp(3rem,7vw,6rem);padding:clamp(1.5rem,4vw,3.5rem);border-radius:calc(var(--radius) + 4px);background:var(--surface);color:var(--text);box-shadow:var(--card-shadow);--ring:var(--text)}
+.evo-apply__intro .evo-h3{font-size:clamp(1.5rem,2.4vw,2rem);letter-spacing:-.02em;line-height:1.15}
+.evo-apply__intro p{margin-top:.875rem;color:var(--text-soft)}
+.evo-apply__intro .evo-apply__required{font-size:var(--fs-small)}
+@media (min-width:960px){.evo-apply{grid-template-columns:minmax(0,4fr) minmax(0,7fr)}}
+.evo-form{display:grid;gap:1.25rem;scroll-margin-top:11rem}
+@media (min-width:640px){.evo-form{grid-template-columns:1fr 1fr}.evo-field--full,.evo-form__foot,.evo-form__status{grid-column:1 / -1}}
+@media (min-width:960px){.evo-form{scroll-margin-top:4rem}}
+.evo-field{min-width:0}
+.evo-field label{display:block;margin-bottom:.375rem;font-size:var(--fs-small);font-weight:700}
+.evo-field__opt{font-weight:400;color:var(--text-soft)}
+.evo-field input,.evo-field select,.evo-field textarea{display:block;width:100%;min-height:3rem;padding:.625rem .875rem;border:1px solid var(--text-muted);border-radius:var(--radius-sm);background:var(--bg);color:var(--text);font-size:1rem;line-height:1.4}
+.evo-field textarea{min-height:7.5rem;resize:vertical}
+.evo-field input:focus-visible,.evo-field select:focus-visible,.evo-field textarea:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-color:var(--text)}
+.evo-field [aria-invalid="true"]{border-color:var(--text);border-width:2px}
+.evo-field__error{display:flex;gap:.375rem;margin-top:.375rem;font-size:var(--fs-small);font-weight:500;line-height:1.4;color:var(--text)}
+.evo-field__error::before{content:"!";flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.25rem;height:1.25rem;border-radius:50%;background:var(--text);color:var(--surface);font-family:var(--font-mono);font-size:.75rem;font-weight:700}
+.evo-field__error:empty{display:none}
+.evo-hp{position:absolute !important;left:-9999px;width:1px;height:1px;overflow:hidden}
+.evo-form__foot{display:flex;flex-direction:column;align-items:flex-start;gap:.875rem;margin-top:.5rem}
+.evo-deep .evo-apply .evo-cta__reassure{color:var(--text-soft)}
+.evo-deep .evo-apply .evo-label{color:var(--text-soft)}
+.evo-form__status{font-size:var(--fs-small);font-weight:500}
+.evo-form__status:empty{display:none}
+.evo-confirm{padding-block:1rem}
+.evo-confirm:focus{outline:none}
+.evo-confirm__mark{display:flex;align-items:center;justify-content:center;width:3rem;height:3rem;border-radius:50%;background:var(--deep);color:var(--evo-gold)}
+.evo-confirm__mark .evo-ico{width:1.5rem;height:1.5rem}
+.evo-confirm .evo-h3{margin-top:1.25rem;font-size:clamp(1.5rem,2.4vw,2rem)}
+.evo-confirm p{margin-top:.75rem;max-width:34em}
+
+/* =========================================================
+   SECTION 8 · FAQ
+   ========================================================= */
+.evo-faq__tier{margin-top:clamp(2.5rem,5vw,4rem);padding-bottom:1rem;color:var(--evo-green)}
+.evo-faq__item{border-top:1px solid var(--line)}
+.evo-faq__list .evo-faq__item:last-child{border-bottom:1px solid var(--line)}
+.evo-faq__q{font-size:inherit;font-weight:inherit}
+.evo-faq__btn{display:grid;grid-template-columns:2.25rem minmax(0,1fr) 2.75rem;align-items:center;gap:.5rem;width:100%;min-height:4rem;padding:1.25rem 0;border:0;background:transparent;color:var(--text);font-family:var(--font-sans);font-size:clamp(1.25rem,2.1vw,1.625rem);font-weight:500;line-height:1.25;letter-spacing:-.015em;text-align:left;cursor:pointer}
+.evo-faq__btn:hover .evo-faq__label{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:.2em}
+.evo-faq__n{font-family:var(--font-mono);font-size:.875rem;font-weight:700;letter-spacing:.02em;color:var(--evo-green)}
+.evo-faq__icon{position:relative;justify-self:end;width:2.75rem;height:2.75rem;border:1px solid var(--line-strong);border-radius:50%}
+.evo-faq__icon::before,.evo-faq__icon::after{content:"";position:absolute;left:50%;top:50%;width:.875rem;height:2px;margin:-1px 0 0 -.4375rem;background:currentColor;transition:transform .2s ease}
+.evo-faq__icon::after{transform:rotate(90deg)}
+.evo-faq__btn[aria-expanded="true"] .evo-faq__icon::after{transform:rotate(0deg)}
+.evo-faq__panel{padding:0 0 1.75rem 0}
+.evo-faq__panel p{max-width:65ch}
+@media (min-width:768px){
+  .evo-faq__btn{grid-template-columns:4rem minmax(0,1fr) 2.75rem;padding-block:1.625rem}
+  .evo-faq__panel{padding-left:4.5rem;padding-bottom:2.25rem}
+}
+
+/* =========================================================
+   SECTION 9 · Footer
+   ========================================================= */
+.evo-footer{padding-block:clamp(3rem,6vw,5rem) calc(clamp(2rem,4vw,3rem) + env(safe-area-inset-bottom, 0px));background:var(--deep);color:var(--on-deep);--ring:var(--on-deep)}
+.evo-footer__top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:2rem}
+.evo-footer .evo-wordmark{display:block;font-size:2.5rem}
+.evo-footer__baseline{margin-top:.625rem;font-size:1.25rem;line-height:1.2}
+.evo-footer__baseline em{font-style:italic;font-weight:400}
+.evo-footer__links{display:flex;flex-wrap:wrap;gap:0 1.75rem}
+.evo-footer__links a{display:inline-flex;align-items:center;min-height:2.75rem;color:var(--on-deep);font-size:var(--fs-small);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.25em}
+.evo-footer__links a:hover{text-decoration-thickness:2px}
+.evo-footer__legal{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--on-deep-line);font-size:.875rem;line-height:1.55;color:var(--on-deep-soft)}
+.evo-footer__legal p{max-width:65ch}
+</style>
+</head>
+<body>
+<a class="evo-skip" href="#contenu">Aller au contenu</a>
+
+<!-- Sprite d'icônes SVG, réutilisées via <use> -->
+<svg class="evo-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <symbol id="evo-i-check" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+  <symbol id="evo-i-cross" viewBox="0 0 20 20"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></symbol>
+  <symbol id="evo-i-chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+  <symbol id="evo-i-pause" viewBox="0 0 16 16"><path d="M5 3v10M11 3v10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path></symbol>
+  <symbol id="evo-i-play" viewBox="0 0 16 16"><path d="M5 3l8 5-8 5z" fill="currentColor"></path></symbol>
+</svg>
+
+<!-- =========================================================
+     SECTION 0 · Header
+     ========================================================= -->
+<header class="evo-header" id="evo-header">
+  <div class="evo-wrap evo-header__inner">
+    <span class="evo-wordmark"><span aria-hidden="true">Ev<span class="evo-o">ø</span></span><span class="evo-sr">Evø</span></span>
+    <a class="evo-btn evo-btn--sm" id="cta-header" href="#candidater">Rejoindre la promotion</a>
+  </div>
+</header>
+
+<main id="contenu" tabindex="-1">
+
+<!-- =========================================================
+     SECTION 1 · Hero
+     ========================================================= -->
+<section class="evo-hero evo-deep" id="hero" data-section="hero" aria-labelledby="hero-titre">
+  <span class="evo-glyph" aria-hidden="true">ø</span>
+  <div class="evo-wrap">
+    <div class="evo-hero__main">
+      <p class="evo-hero__kicker">Votre boîte tourne. Elle ne décolle pas. Et vous savez déjà pourquoi : vous êtes seul à bord.</p>
+      <h1 class="evo-hero__title" id="hero-titre">6 mois pour structurer votre boîte. Ensuite, on envisage d'y mettre notre argent.</h1>
+      <p class="evo-hero__sub">Evø est un fonds d'investissement qui fait tout à l'envers. Au lieu de vous faire signer après trois rendez-vous et un business plan que personne ne relira, on passe six mois à travailler avec vous. Si ça décolle, on met notre argent. <strong><span class="evo-o">Ø</span> slide. <span class="evo-o">Ø</span> anglicisme. <span class="evo-o">Ø</span> type en costume qui vous explique votre métier.</strong></p>
+      <div class="evo-cta">
+        <a class="evo-btn" id="cta-hero" href="#candidater">Candidater à la prochaine promotion <svg aria-hidden="true" focusable="false"><use href="#evo-i-chevron"></use></svg></a>
+        <p class="evo-cta__sub">Un échange de 30 minutes avec Greg. Gratuit, sans dossier à préparer.</p>
+        <p class="evo-cta__reassure">Sans engagement. Échange confidentiel. Réponse claire sous 48h, oui ou non.</p>
+      </div>
+    </div>
+
+    <ul class="evo-benefits">
+      <li class="evo-benefit">
+        <svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg>
+        <p><strong class="evo-benefit__title">Neuf experts, zéro fiche de paie.</strong> <span class="evo-benefit__text">Vente, finance, RH, recrutement, acquisition, opérations, digital. Vous piochez celui qu'il vous faut. Personne ne vous facture une journée pour vous dire de «&nbsp;challenger votre positionnement&nbsp;».</span></p>
+      </li>
+      <li class="evo-benefit">
+        <svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg>
+        <p><strong class="evo-benefit__title">Un plan qu'on déroule, pas qu'on vous rend.</strong> <span class="evo-benefit__text">Points réguliers, actions datées, chiffres suivis. Vous n'êtes pas laissé seul avec une recommandation.</span></p>
+      </li>
+      <li class="evo-benefit">
+        <svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg>
+        <p><strong class="evo-benefit__title">Un investisseur potentiel qui connaîtra votre boîte par cœur.</strong> <span class="evo-benefit__text">Quand on parlera capital, on aura déjà passé 6 mois dedans.</span></p>
+      </li>
+    </ul>
+
+    <div class="evo-hero__trust">
+      <p>Pas besoin d'être une startup ni de lever des millions. On travaille avec des TPE et des PME qui ont des vrais clients et des vrais problèmes.</p>
+      <p>Vous restez dirigeant, majoritaire, et maître de vos décisions du premier au dernier jour.</p>
+    </div>
+
+    <!-- À CONFIRMER : nom de la promotion (ex. « Printemps 26 ») et date de clôture des candidatures. Bloquant. -->
+    <p class="evo-hero__urgency">Promotion <span class="evo-tbc">[nom]</span> · 100 places · candidatures ouvertes jusqu'au <span class="evo-tbc">[date]</span>. Deux promotions par an, pas une de plus.</p>
+  </div>
+</section>
+
+<!-- Bandeau défilant du running gag Ø (formules du §1.2 du brief). La copie est masquée aux lecteurs d'écran. -->
+<div class="evo-marquee" id="evo-marquee">
+  <div class="evo-marquee__track">
+    <ul class="evo-marquee__group">
+      <li>Ø slide</li><li class="evo-marquee__sep" aria-hidden="true">ø</li>
+      <li>Ø anglicisme</li><li class="evo-marquee__sep" aria-hidden="true">ø</li>
+      <li>Ø costume</li><li class="evo-marquee__sep" aria-hidden="true">ø</li>
+      <li>Ø term sheet de 40 pages</li><li class="evo-marquee__sep" aria-hidden="true">ø</li>
+    </ul>
+    <ul class="evo-marquee__group" aria-hidden="true">
+      <li>Ø slide</li><li class="evo-marquee__sep">ø</li>
+      <li>Ø anglicisme</li><li class="evo-marquee__sep">ø</li>
+      <li>Ø costume</li><li class="evo-marquee__sep">ø</li>
+      <li>Ø term sheet de 40 pages</li><li class="evo-marquee__sep">ø</li>
+    </ul>
+    <ul class="evo-marquee__group" aria-hidden="true">
+      <li>Ø slide</li><li class="evo-marquee__sep">ø</li>
+      <li>Ø anglicisme</li><li class="evo-marquee__sep">ø</li>
+      <li>Ø costume</li><li class="evo-marquee__sep">ø</li>
+      <li>Ø term sheet de 40 pages</li><li class="evo-marquee__sep">ø</li>
+    </ul>
+    <ul class="evo-marquee__group" aria-hidden="true">
+      <li>Ø slide</li><li class="evo-marquee__sep">ø</li>
+      <li>Ø anglicisme</li><li class="evo-marquee__sep">ø</li>
+      <li>Ø costume</li><li class="evo-marquee__sep">ø</li>
+      <li>Ø term sheet de 40 pages</li><li class="evo-marquee__sep">ø</li>
+    </ul>
+  </div>
+  <button type="button" class="evo-marquee__toggle" id="evo-marquee-toggle" aria-pressed="false">
+    <span class="evo-sr">Mettre le bandeau en pause</span>
+    <svg class="evo-marquee__pause" aria-hidden="true" focusable="false"><use href="#evo-i-pause"></use></svg>
+    <svg class="evo-marquee__play" aria-hidden="true" focusable="false"><use href="#evo-i-play"></use></svg>
+  </button>
+</div>
+
+<!-- =========================================================
+     SECTION 2 · Le problème, puis la comparaison
+     ========================================================= -->
+<section class="evo-section evo-problem" id="probleme" data-section="probleme" aria-labelledby="probleme-titre">
+  <div class="evo-wrap">
+
+    <!-- Partie A · Dramatisation -->
+    <div class="evo-problem__intro">
+      <h2 class="evo-h2 evo-reveal" id="probleme-titre">Le problème n'est pas votre produit. C'est que vous faites neuf métiers à la fois.</h2>
+      <div class="evo-problem__body evo-prose evo-reveal">
+        <p>Vous êtes commercial le lundi, DRH le mardi, comptable le vendredi soir. Vous pilotez la trésorerie sur un tableur que vous êtes seul à comprendre. Vous recrutez à l'instinct, vous fixez vos prix à l'instinct, vous arbitrez à l'instinct.</p>
+        <p>Ça a marché jusqu'ici. C'est exactement pour ça que ça bloque maintenant.</p>
+        <p>Une TPE qui plafonne, ce n'est presque jamais un problème de marché. C'est un dirigeant qui n'a ni les neuf expertises nécessaires pour passer le cap, ni les moyens de s'offrir neuf salaires de cadres.</p>
+      </div>
+    </div>
+
+    <ul class="evo-stats evo-reveal" id="evo-stats">
+      <li class="evo-stat">
+        <p class="evo-stat__num"><span data-count="9">9</span></p>
+        <p class="evo-stat__text"><strong>métiers</strong> à couvrir pour faire croître une PME</p>
+      </li>
+      <li class="evo-stat">
+        <p class="evo-stat__num"><span data-count="1">1</span></p>
+        <p class="evo-stat__text"><strong>personne</strong> pour les assumer aujourd'hui : vous</p>
+      </li>
+      <li class="evo-stat">
+        <!-- À CONFIRMER : fourchette 60 à 80 k€ chargés, à valider avant publication -->
+        <p class="evo-stat__num"><span><span data-count="60">60</span> à <span data-count="80">80</span></span> <span class="evo-stat__unit">k€</span></p>
+        <p class="evo-stat__text">par an, le coût chargé d'<strong>un seul</strong> cadre expérimenté</p>
+      </li>
+      <li class="evo-stat evo-stat--pivot">
+        <span class="evo-stat__mark" aria-hidden="true">ø</span>
+        <p class="evo-stat__num"><span data-count="1500">1&nbsp;500</span> <span class="evo-stat__unit">€ / mois</span></p>
+        <p class="evo-stat__text">pour avoir accès aux neuf</p>
+      </li>
+    </ul>
+
+    <div class="evo-pivot evo-reveal">
+      <span class="evo-pivot__mark" aria-hidden="true">ø</span>
+      <p class="evo-statement">Vous n'avez pas besoin d'un consultant de plus qui repart avec un PowerPoint et votre argent. Vous avez besoin que le boulot soit fait.</p>
+    </div>
+
+    <!-- Partie B · Comparatif à 3 colonnes, recomposé en cartes (pattern Us vs Them) -->
+    <div class="evo-compare" id="comparaison" data-section="comparaison" role="group" aria-label="Comparatif : vous seul, le consultant en costume, Evø">
+      <div class="evo-compare__grid">
+
+        <article class="evo-vs evo-reveal">
+          <div class="evo-vs__head">
+            <h3 class="evo-vs__name">Vous, seul</h3>
+          </div>
+          <dl class="evo-vs__list">
+            <div class="evo-vs__row"><dt class="evo-label">Expertises accessibles</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>Les vôtres</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Ce qu'on vous livre</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>Rien de plus qu'hier</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Coût</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>Votre plafond de verre</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Vocabulaire employé</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>«&nbsp;Faut que je trouve le temps&nbsp;»</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Ce qu'il reste à la fin</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>Les mêmes blocages</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Il met son argent dans votre boîte</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>Vous êtes seul dessus</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Son intérêt</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>Facturer sa journée</span></dd></div>
+          </dl>
+        </article>
+
+        <article class="evo-vs evo-reveal">
+          <div class="evo-vs__head">
+            <h3 class="evo-vs__name">Le consultant en costume</h3>
+          </div>
+          <dl class="evo-vs__list">
+            <div class="evo-vs__row"><dt class="evo-label">Expertises accessibles</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>Celle d'une personne</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Ce qu'on vous livre</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>Un rapport, des conseils</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Coût</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>5&nbsp;000 à 15&nbsp;000&nbsp;€ la mission</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Vocabulaire employé</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>«&nbsp;Disruption&nbsp;», «&nbsp;scalabilité&nbsp;», «&nbsp;ROI omnicanal&nbsp;»</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Ce qu'il reste à la fin</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>Un document</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Il met son argent dans votre boîte</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>Jamais</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Son intérêt</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-cross"></use></svg><span class="evo-sr">Non</span><span>Vendre la mission suivante</span></dd></div>
+          </dl>
+        </article>
+
+        <!-- Carte mise en avant. Placée en premier sur mobile via order, troisième colonne sur desktop. -->
+        <article class="evo-vs evo-vs--evo evo-reveal">
+          <div class="evo-vs__head">
+            <span class="evo-label">Fonds d'investissement</span>
+            <h3 class="evo-vs__name"><span aria-hidden="true">Ev<span class="evo-o">ø</span></span><span class="evo-sr">Evø</span></h3>
+          </div>
+          <dl class="evo-vs__list">
+            <div class="evo-vs__row"><dt class="evo-label">Expertises accessibles</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><span class="evo-sr">Oui</span><span>Neuf domaines, à la demande</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Ce qu'on vous livre</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><span class="evo-sr">Oui</span><span>Un plan déroulé avec vous</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Coût</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><span class="evo-sr">Oui</span><span>1&nbsp;500&nbsp;€ par mois, tout compris</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Vocabulaire employé</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><span class="evo-sr">Oui</span><span>Des mots que votre équipe comprend</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Ce qu'il reste à la fin</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><span class="evo-sr">Oui</span><span>Une boîte structurée et des process</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Il met son argent dans votre boîte</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><span class="evo-sr">Oui</span><span>C'est tout l'objectif des 6 mois</span></dd></div>
+            <div class="evo-vs__row"><dt class="evo-label">Son intérêt</dt><dd><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><span class="evo-sr">Oui</span><span>Que votre valorisation grimpe</span></dd></div>
+          </dl>
+        </article>
+
+      </div>
+
+      <p class="evo-statement evo-compare__close evo-reveal">C'est la seule ligne qui compte vraiment : un consultant gagne de l'argent quand il vous facture. Nous, on gagne de l'argent quand votre boîte prend de la valeur. Ce n'est pas le même métier.</p>
+    </div>
+
+    <div class="evo-cta">
+      <a class="evo-btn" id="cta-compare" href="#candidater">Voir si votre boîte rentre dans le cadre <svg aria-hidden="true" focusable="false"><use href="#evo-i-chevron"></use></svg></a>
+      <p class="evo-cta__reassure">Sans engagement. Échange confidentiel. Réponse claire sous 48h, oui ou non.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     SECTION 3 · Comment ça se passe
+     ========================================================= -->
+<section class="evo-section evo-process" id="parcours" data-section="parcours" aria-labelledby="parcours-titre">
+  <div class="evo-wrap">
+    <div class="evo-process__layout">
+
+      <!-- Colonne gauche, collante sur desktop -->
+      <div class="evo-process__aside">
+        <h2 class="evo-h2" id="parcours-titre">6 mois, 1&nbsp;500&nbsp;€ par mois, puis on décide tous les deux.</h2>
+        <p class="evo-lead">Aucune zone grise. Voilà exactement ce que vous achetez.</p>
+
+        <!-- Schéma de parcours, frise 3 temps. Le tarif n'est volontairement pas affiché ici (voir §6 du brief). -->
+        <div class="evo-frise-box">
+          <ol class="evo-frise" aria-label="Le parcours en 3 temps">
+            <li class="evo-frise__seg evo-frise__seg--start">Candidature</li>
+            <li class="evo-frise__seg evo-frise__seg--main">Accompagnement · 6 mois</li>
+            <li class="evo-frise__seg evo-frise__seg--end">Décision d'investissement</li>
+          </ol>
+        </div>
+        <p class="evo-process__note"><strong>L'investissement arrive à la fin, pas au début. C'est la seule façon d'être certains tous les deux.</strong></p>
+      </div>
+
+      <!-- Colonne droite : timeline détaillée, la ligne verte se remplit au scroll -->
+      <ol class="evo-steps" id="evo-steps">
+        <li class="evo-step evo-reveal">
+          <span class="evo-step__dot" aria-hidden="true">0</span>
+          <div class="evo-step__body">
+            <span class="evo-label">Étape 0</span>
+            <h3 class="evo-h3">Le premier échange</h3>
+            <p>30 minutes, gratuit, et surtout pas de dossier à préparer. Vous racontez votre boîte, on écoute, et on vous dit honnêtement si on peut aider. Si la réponse est non, on vous le dit en 30 minutes plutôt qu'en six mois.</p>
+            <div class="evo-step__meta">
+              <p class="evo-step__deliver"><span class="evo-label">Livrable :</span> une réponse claire sous 48h.</p>
+            </div>
+          </div>
+        </li>
+        <li class="evo-step evo-reveal">
+          <span class="evo-step__dot" aria-hidden="true">1</span>
+          <div class="evo-step__body">
+            <span class="evo-label">Étape 1 · Semaines 1 et 2</span>
+            <h3 class="evo-h3">Le diagnostic</h3>
+            <p>On passe la boîte au scanner : finance, vente, organisation, acquisition, delivery. On sort les trois leviers qui débloquent réellement la croissance, pas les quinze qu'on pourrait lister.</p>
+            <div class="evo-step__meta evo-step__meta--two">
+              <p><span class="evo-label">De votre côté :</span> vous ouvrez vos chiffres.</p>
+              <p class="evo-step__deliver"><span class="evo-label">Livrable :</span> un état des lieux chiffré et un plan de croissance sur 6 mois.</p>
+            </div>
+          </div>
+        </li>
+        <li class="evo-step evo-reveal">
+          <span class="evo-step__dot" aria-hidden="true">2</span>
+          <div class="evo-step__body">
+            <span class="evo-label">Étape 2 · Semaine 3</span>
+            <h3 class="evo-h3">Le matching</h3>
+            <p>On vous affecte les experts dont vous avez besoin, et seulement ceux-là. Une boîte saturée en production n'a pas besoin du même duo qu'une boîte qui ne sait pas vendre.</p>
+            <div class="evo-step__meta">
+              <p class="evo-step__deliver"><span class="evo-label">Livrable :</span> vos référents nommés, le rythme des points, les objectifs chiffrés.</p>
+            </div>
+          </div>
+        </li>
+        <li class="evo-step evo-reveal">
+          <span class="evo-step__dot" aria-hidden="true">3</span>
+          <div class="evo-step__body">
+            <span class="evo-label">Étape 3 · Mois 2 à 5</span>
+            <h3 class="evo-h3">L'exécution</h3>
+            <p>Points réguliers avec vos experts, plans d'action datés, formations ciblées, accès au catalogue de services Evø et à la communauté de la promotion.</p>
+            <div class="evo-step__meta evo-step__meta--two">
+              <p><span class="evo-label">De votre côté :</span> vous dirigez votre boîte. On ne prend pas votre place, on prend le travail que vous n'avez pas le temps de faire.</p>
+              <p class="evo-step__deliver"><span class="evo-label">Livrable :</span> des chiffres qui bougent, mois après mois.</p>
+            </div>
+          </div>
+        </li>
+        <li class="evo-step evo-reveal">
+          <span class="evo-step__dot" aria-hidden="true">4</span>
+          <div class="evo-step__body">
+            <span class="evo-label">Étape 4 · Mois 6</span>
+            <h3 class="evo-h3">Le bilan</h3>
+            <p>On compare la boîte du jour 1 et celle du jour 180. On met une proposition d'investissement sur la table, ou on vous explique précisément pourquoi on ne le fait pas.</p>
+            <div class="evo-step__meta evo-step__meta--two">
+              <p><span class="evo-label">De votre côté :</span> vous décidez aussi. Vous avez eu 6 mois pour nous juger.</p>
+              <p class="evo-step__deliver"><span class="evo-label">Livrable :</span> une proposition d'entrée au capital, ou une sortie propre.</p>
+            </div>
+          </div>
+        </li>
+        <!-- Dernière étape : carte vert profond, pastille dorée avec le ø à la place du numéro -->
+        <li class="evo-step evo-step--final evo-reveal">
+          <span class="evo-step__dot evo-step__dot--gold" aria-hidden="true">ø</span>
+          <div class="evo-step__body">
+            <span class="evo-label">Étape 5</span>
+            <h3 class="evo-h3">Après</h3>
+            <p>Si on investit, l'accompagnement ne s'arrête pas, il change de nature. Nos intérêts sont alors définitivement liés aux vôtres.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="evo-process__close">
+      <p class="evo-statement evo-statement--bold evo-reveal">Pendant ces 6 mois, votre entreprise tourne normalement. Comptez une demi-journée par semaine, pas davantage.</p>
+      <p class="evo-lead evo-reveal">On sait que «&nbsp;fonds d'investissement&nbsp;» évoque en général un open space à La Défense et un type qui vous demande votre EBITDA prévisionnel à trois ans. Nous, on va surtout vous demander pourquoi personne ne relance vos devis.</p>
+    </div>
+
+    <div class="evo-cta">
+      <a class="evo-btn" id="cta-process" href="#candidater">Démarrer par l'étape 0 <svg aria-hidden="true" focusable="false"><use href="#evo-i-chevron"></use></svg></a>
+      <p class="evo-cta__reassure">Sans engagement. Échange confidentiel. Réponse claire sous 48h, oui ou non.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     SECTION 4 · Qui va bosser sur votre boîte
+     ========================================================= -->
+<section class="evo-section evo-team" id="equipe" data-section="equipe" aria-labelledby="equipe-titre">
+  <div class="evo-wrap">
+    <div class="evo-team__head">
+      <h2 class="evo-h2 evo-reveal" id="equipe-titre">Neuf métiers. Vous sollicitez celui dont vous avez besoin.</h2>
+      <p class="evo-lead evo-reveal">Vous n'aurez pas un interlocuteur unique qui fait semblant de tout savoir. Vous aurez celui qui sait, sur le sujet du moment.</p>
+    </div>
+
+    <div class="evo-bento">
+      <!-- Carte Greg : format double, halo discret au survol (pattern Spotlight Card) -->
+      <article class="evo-greg evo-reveal" id="evo-greg">
+        <span class="evo-greg__glyph" aria-hidden="true">ø</span>
+        <div class="evo-greg__top">
+          <!-- Emplacement de la photo de Greg, à fournir -->
+          <span class="evo-avatar evo-avatar--deep" aria-hidden="true">G</span>
+        </div>
+        <div>
+          <h3 class="evo-h3">Greg · Fondateur</h3>
+          <p class="evo-greg__text">Vision, arbitrage, stratégie, croissance externe. C'est lui qui vous dit non quand c'est une mauvaise idée. Probablement le service le plus rentable de la liste.</p>
+        </div>
+      </article>
+
+      <!-- Les 8 domaines. À CONFIRMER : prénoms et photos des 8 experts, ajoutés au fur et à mesure. -->
+      <article class="evo-domain evo-reveal">
+        <span class="evo-domain__num" aria-hidden="true">01</span>
+        <h3 class="evo-h3">Management et RH cadre</h3>
+        <p class="evo-domain__text">Structurer une équipe, déléguer pour de vrai, gérer les collaborations qui coincent, piloter plusieurs sites</p>
+        <p class="evo-domain__who"><span class="evo-avatar" aria-hidden="true">ø</span><span class="evo-label">Prénom à venir</span></p>
+      </article>
+      <article class="evo-domain evo-reveal">
+        <span class="evo-domain__num" aria-hidden="true">02</span>
+        <h3 class="evo-h3">Vente</h3>
+        <p class="evo-domain__text">Closing, prospection, scripts, montée en puissance d'une équipe commerciale</p>
+        <p class="evo-domain__who"><span class="evo-avatar" aria-hidden="true">ø</span><span class="evo-label">Prénom à venir</span></p>
+      </article>
+      <article class="evo-domain evo-reveal">
+        <span class="evo-domain__num" aria-hidden="true">03</span>
+        <h3 class="evo-h3">Finance</h3>
+        <p class="evo-domain__text">Trésorerie, compte de résultat, marge, rentabilité, pilotage du cash</p>
+        <p class="evo-domain__who"><span class="evo-avatar" aria-hidden="true">ø</span><span class="evo-label">Prénom à venir</span></p>
+      </article>
+      <article class="evo-domain evo-reveal">
+        <span class="evo-domain__num" aria-hidden="true">04</span>
+        <h3 class="evo-h3">Opérations et point de vente</h3>
+        <p class="evo-domain__text">Organisation terrain, process, merchandising, exécution</p>
+        <p class="evo-domain__who"><span class="evo-avatar" aria-hidden="true">ø</span><span class="evo-label">Prénom à venir</span></p>
+      </article>
+      <article class="evo-domain evo-reveal">
+        <span class="evo-domain__num" aria-hidden="true">05</span>
+        <h3 class="evo-h3">Recrutement et staffing</h3>
+        <p class="evo-domain__text">Trouver les bons profils, les intégrer, construire un organigramme qui tient</p>
+        <p class="evo-domain__who"><span class="evo-avatar" aria-hidden="true">ø</span><span class="evo-label">Prénom à venir</span></p>
+      </article>
+      <article class="evo-domain evo-reveal">
+        <span class="evo-domain__num" aria-hidden="true">06</span>
+        <h3 class="evo-h3">Acquisition et data</h3>
+        <p class="evo-domain__text">Marketing digital, contenu, visibilité locale, tracking et pilotage par les chiffres</p>
+        <p class="evo-domain__who"><span class="evo-avatar" aria-hidden="true">ø</span><span class="evo-label">Prénom à venir</span></p>
+      </article>
+      <article class="evo-domain evo-reveal">
+        <span class="evo-domain__num" aria-hidden="true">07</span>
+        <h3 class="evo-h3">Parcours client et digital</h3>
+        <p class="evo-domain__text">Rétention, tunnels de conversion, expérience client en ligne</p>
+        <p class="evo-domain__who"><span class="evo-avatar" aria-hidden="true">ø</span><span class="evo-label">Prénom à venir</span></p>
+      </article>
+      <article class="evo-domain evo-reveal">
+        <span class="evo-domain__num" aria-hidden="true">08</span>
+        <h3 class="evo-h3">Coordination</h3>
+        <p class="evo-domain__text">Le chef d'orchestre qui fait tourner tout ça au bon rythme</p>
+        <p class="evo-domain__who"><span class="evo-avatar" aria-hidden="true">ø</span><span class="evo-label">Prénom à venir</span></p>
+      </article>
+    </div>
+
+    <!-- Grille de témoignages : structure prête, masquée tant qu'il n'y a pas de témoignages réels.
+         À activer à la fin de la promotion 1 : retirer l'attribut hidden et remplir les cartes. Ne rien inventer. -->
+    <div class="evo-testimonials" id="temoignages" hidden>
+      <figure class="evo-domain">
+        <blockquote><p><!-- Verbatim du dirigeant --></p></blockquote>
+        <figcaption class="evo-label"><!-- Prénom, entreprise, secteur, promotion --></figcaption>
+      </figure>
+      <figure class="evo-domain">
+        <blockquote><p><!-- Verbatim du dirigeant --></p></blockquote>
+        <figcaption class="evo-label"><!-- Prénom, entreprise, secteur, promotion --></figcaption>
+      </figure>
+      <figure class="evo-domain">
+        <blockquote><p><!-- Verbatim du dirigeant --></p></blockquote>
+        <figcaption class="evo-label"><!-- Prénom, entreprise, secteur, promotion --></figcaption>
+      </figure>
+    </div>
+
+    <p class="evo-statement evo-team__close evo-reveal">Un seul de ces profils en CDI vous coûterait plus cher sur un mois que les six mois d'accompagnement Evø.</p>
+
+    <div class="evo-cta">
+      <a class="evo-btn" id="cta-team" href="#candidater">Rencontrer l'équipe <svg aria-hidden="true" focusable="false"><use href="#evo-i-chevron"></use></svg></a>
+      <p class="evo-cta__reassure">Sans engagement. Échange confidentiel. Réponse claire sous 48h, oui ou non.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     SECTION 5 · Avant / Après
+     ========================================================= -->
+<section class="evo-section evo-section--surface evo-beforeafter" id="avant-apres" data-section="avant-apres" aria-labelledby="avant-apres-titre">
+  <div class="evo-wrap">
+    <h2 class="evo-h2 evo-reveal" id="avant-apres-titre">Vous êtes un bon dirigeant. C'est précisément pour ça que tout repose sur vous.</h2>
+    <p class="evo-ba__legend">Cochez, pour voir.</p>
+
+    <div class="evo-ba">
+      <div class="evo-ba__heads evo-label" aria-hidden="true"><span>Aujourd'hui</span><span>Dans 6 mois</span></div>
+      <ul class="evo-ba__list">
+        <li class="evo-ba__row evo-reveal">
+          <p class="evo-ba__before"><span class="evo-ba__tag">Aujourd'hui</span> <span class="evo-ba__before-text">Vous êtes le goulot d'étranglement</span></p>
+          <div class="evo-ba__after"><span class="evo-ba__tag">Dans 6 mois</span>
+            <div class="evo-check"><input type="checkbox" id="evo-ba-1"><label for="evo-ba-1">La boîte tourne quand vous n'êtes pas là</label></div>
+          </div>
+        </li>
+        <li class="evo-ba__row evo-reveal">
+          <p class="evo-ba__before"><span class="evo-ba__tag">Aujourd'hui</span> <span class="evo-ba__before-text">Vous arbitrez à l'instinct</span></p>
+          <div class="evo-ba__after"><span class="evo-ba__tag">Dans 6 mois</span>
+            <div class="evo-check"><input type="checkbox" id="evo-ba-2"><label for="evo-ba-2">Vous arbitrez sur des chiffres que vous maîtrisez</label></div>
+          </div>
+        </li>
+        <li class="evo-ba__row evo-reveal">
+          <p class="evo-ba__before"><span class="evo-ba__tag">Aujourd'hui</span> <span class="evo-ba__before-text">La croissance dépend de votre énergie</span></p>
+          <div class="evo-ba__after"><span class="evo-ba__tag">Dans 6 mois</span>
+            <div class="evo-check"><input type="checkbox" id="evo-ba-3"><label for="evo-ba-3">La croissance dépend d'un système</label></div>
+          </div>
+        </li>
+        <li class="evo-ba__row evo-reveal">
+          <p class="evo-ba__before"><span class="evo-ba__tag">Aujourd'hui</span> <span class="evo-ba__before-text">Vous refusez des opportunités faute de structure</span></p>
+          <div class="evo-ba__after"><span class="evo-ba__tag">Dans 6 mois</span>
+            <div class="evo-check"><input type="checkbox" id="evo-ba-4"><label for="evo-ba-4">Vous encaissez les opportunités</label></div>
+          </div>
+        </li>
+        <li class="evo-ba__row evo-reveal">
+          <p class="evo-ba__before"><span class="evo-ba__tag">Aujourd'hui</span> <span class="evo-ba__before-text">Vous vendez votre temps</span></p>
+          <div class="evo-ba__after"><span class="evo-ba__tag">Dans 6 mois</span>
+            <div class="evo-check"><input type="checkbox" id="evo-ba-5"><label for="evo-ba-5">Vous construisez un actif qui a une valeur</label></div>
+          </div>
+        </li>
+        <li class="evo-ba__row evo-reveal">
+          <p class="evo-ba__before"><span class="evo-ba__tag">Aujourd'hui</span> <span class="evo-ba__before-text">Personne ne comprend vos décisions autour de vous</span></p>
+          <div class="evo-ba__after"><span class="evo-ba__tag">Dans 6 mois</span>
+            <div class="evo-check"><input type="checkbox" id="evo-ba-6"><label for="evo-ba-6">Neuf experts et une promotion de dirigeants à vos côtés</label></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <p class="evo-lead evo-ba__close evo-reveal">Oui, on vient de vous faire un tableau avant/après. C'est un peu cliché, mais dans six mois vous le relirez et vous cocherez les lignes une par une.</p>
+
+    <div class="evo-cta">
+      <a class="evo-btn" id="cta-beforeafter" href="#candidater">Passer de l'un à l'autre <svg aria-hidden="true" focusable="false"><use href="#evo-i-chevron"></use></svg></a>
+      <p class="evo-cta__reassure">Sans engagement. Échange confidentiel. Réponse claire sous 48h, oui ou non.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     SECTION 6 · Ce que vous pensez / la réalité
+     ========================================================= -->
+<section class="evo-section" id="objections" data-section="objections" aria-labelledby="objections-titre">
+  <div class="evo-wrap">
+    <h2 class="evo-h2 evo-reveal" id="objections-titre">Les cinq objections qu'on entend à chaque premier échange.</h2>
+
+    <ol class="evo-objections">
+      <li class="evo-objection evo-reveal">
+        <div class="evo-objection__think">
+          <span class="evo-objection__num"><span class="evo-sr">Objection </span>1/5</span>
+          <span class="evo-label">Ce que vous pensez</span>
+          <h3 class="evo-objection__quote">«&nbsp;Je paie pour être audité avant que vous investissiez&nbsp;?&nbsp;»</h3>
+        </div>
+        <div class="evo-objection__real">
+          <span class="evo-label">La réalité</span>
+          <p>Vous payez pour six mois de travail sur votre boîte, qui vous appartiennent qu'on investisse ou non. Le diagnostic, le plan, les process, les compétences transférées : tout reste chez vous. L'investissement est une possibilité à la fin, pas une contrepartie.</p>
+        </div>
+      </li>
+      <li class="evo-objection evo-reveal">
+        <div class="evo-objection__think">
+          <span class="evo-objection__num"><span class="evo-sr">Objection </span>2/5</span>
+          <span class="evo-label">Ce que vous pensez</span>
+          <h3 class="evo-objection__quote">«&nbsp;C'est du coaching déguisé&nbsp;»</h3>
+        </div>
+        <div class="evo-objection__real">
+          <span class="evo-label">La réalité</span>
+          <p>Un coach vous facture et s'en va. Nous, on envisage de mettre notre propre argent dans votre boîte au mois 6. Si on se trompe sur vous, on perd avec vous. Aucun coach ne prend ce risque.</p>
+        </div>
+      </li>
+      <li class="evo-objection evo-reveal">
+        <div class="evo-objection__think">
+          <span class="evo-objection__num"><span class="evo-sr">Objection </span>3/5</span>
+          <span class="evo-label">Ce que vous pensez</span>
+          <h3 class="evo-objection__quote">«&nbsp;1&nbsp;500&nbsp;€ par mois, c'est cher&nbsp;»</h3>
+        </div>
+        <div class="evo-objection__real">
+          <span class="evo-label">La réalité</span>
+          <p>C'est le tarif d'un consultant pour deux journées. Vous avez neuf domaines d'expertise, un plan déroulé, des formations et un catalogue de services, pendant six mois. Faites le calcul dans l'autre sens : combien vous coûte une année de plateau ?</p>
+        </div>
+      </li>
+      <li class="evo-objection evo-reveal">
+        <div class="evo-objection__think">
+          <span class="evo-objection__num"><span class="evo-sr">Objection </span>4/5</span>
+          <span class="evo-label">Ce que vous pensez</span>
+          <h3 class="evo-objection__quote">«&nbsp;Vous allez prendre le contrôle de ma boîte&nbsp;»</h3>
+        </div>
+        <div class="evo-objection__real">
+          <span class="evo-label">La réalité</span>
+          <p>Vous restez dirigeant et majoritaire. La participation se discute au cas par cas, au mois 6, et seulement si vous le souhaitez. On investit dans des boîtes dirigées par des gens qui savent les diriger, sinon on n'investirait pas.</p>
+        </div>
+      </li>
+      <li class="evo-objection evo-reveal">
+        <div class="evo-objection__think">
+          <span class="evo-objection__num"><span class="evo-sr">Objection </span>5/5</span>
+          <span class="evo-label">Ce que vous pensez</span>
+          <h3 class="evo-objection__quote">«&nbsp;Ma boîte est trop petite pour un fonds&nbsp;»</h3>
+        </div>
+        <div class="evo-objection__real">
+          <span class="evo-label">La réalité</span>
+          <p>On ne cherche pas des licornes. On travaille avec des TPE et des PME solides qui plafonnent pour des raisons d'organisation, pas de marché. C'est exactement notre terrain.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="evo-cta">
+      <a class="evo-btn" id="cta-objections" href="#candidater">Poser vos propres objections en direct <svg aria-hidden="true" focusable="false"><use href="#evo-i-chevron"></use></svg></a>
+      <p class="evo-cta__reassure">Sans engagement. Échange confidentiel. Réponse claire sous 48h, oui ou non.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     SECTION 7 · Récapitulatif + CTA final + formulaire
+     ========================================================= -->
+<section class="evo-section evo-final evo-deep" id="rejoindre" data-section="rejoindre" aria-labelledby="rejoindre-titre">
+  <span class="evo-glyph" aria-hidden="true">ø</span>
+  <div class="evo-wrap">
+    <p class="evo-final__lead evo-reveal">Vous créez toute la valeur de votre entreprise. Et vous êtes le seul à ne jamais avoir le temps de la faire grandir.</p>
+    <h2 class="evo-h2 evo-h2--xl evo-reveal" id="rejoindre-titre">Six mois pour structurer. Puis un investisseur à la table, si tout le monde est d'accord.</h2>
+    <!-- À CONFIRMER : 1 500 € HT ou TTC -->
+    <p class="evo-final__terms evo-reveal">1&nbsp;500&nbsp;€ par mois, sans engagement au-delà des six mois, ni de votre côté ni du nôtre.</p>
+
+    <ul class="evo-final__list">
+      <li class="evo-reveal"><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><p><strong>Un diagnostic complet dès les deux premières semaines</strong> <span class="evo-final__more">(vous saurez enfin où ça coince, chiffres à l'appui)</span></p></li>
+      <li class="evo-reveal"><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><p><strong>Neuf domaines d'expertise accessibles</strong> <span class="evo-final__more">(sans les neuf salaires)</span></p></li>
+      <li class="evo-reveal"><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><p><strong>Un plan déroulé, pas rendu</strong> <span class="evo-final__more">(fin des recommandations qui dorment dans un dossier)</span></p></li>
+      <li class="evo-reveal"><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><p><strong>Une promotion de dirigeants qui vivent la même chose</strong> <span class="evo-final__more">(fin de la solitude du patron)</span></p></li>
+      <li class="evo-reveal"><svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg><p><strong>Une entreprise structurée dans tous les cas</strong> <span class="evo-final__more">(ce qu'on construit reste chez vous, investissement ou pas)</span></p></li>
+    </ul>
+
+    <!-- À CONFIRMER : nom de la promotion et date de clôture -->
+    <div class="evo-cta">
+      <a class="evo-btn" id="cta-final" href="#candidater">Rejoindre la promotion <span class="evo-tbc">[nom]</span> <svg aria-hidden="true" focusable="false"><use href="#evo-i-chevron"></use></svg></a>
+      <p class="evo-cta__sub">100 places. Candidatures ouvertes jusqu'au <span class="evo-tbc">[date]</span>. Réponse sous 48h.</p>
+      <p class="evo-cta__reassure">Sans engagement. Échange confidentiel. Réponse claire sous 48h, oui ou non.</p>
+    </div>
+
+    <!-- Carte de candidature -->
+    <div class="evo-apply" id="evo-apply">
+      <div class="evo-apply__intro">
+        <h3 class="evo-h3">Candidater à la prochaine promotion</h3>
+        <p>Un échange de 30 minutes avec Greg. Gratuit, sans dossier à préparer.</p>
+        <p class="evo-apply__required">Tous les champs sont à remplir, sauf ceux marqués «&nbsp;facultatif&nbsp;».</p>
+      </div>
+
+      <div class="evo-apply__main">
+        <!-- EMPLACEMENT DU FUTUR CALENDRIER EMBARQUÉ (Calendly ou Cal.com), priorité 1 du brief.
+             À CONFIRMER : outil de prise de rendez-vous et destination des leads (CRM ou boîte mail).
+             Quand l'outil est choisi : insérer l'embed ici et garder le formulaire ci-dessous en solution de repli. -->
+
+        <form class="evo-form" id="candidater" action="#" method="post" aria-labelledby="evo-apply-titre">
+          <span class="evo-sr" id="evo-apply-titre">Formulaire de candidature</span>
+
+          <div class="evo-field">
+            <label for="evo-nom">Nom</label>
+            <input type="text" id="evo-nom" name="nom" autocomplete="name" required aria-describedby="evo-nom-erreur">
+            <p class="evo-field__error" id="evo-nom-erreur" aria-live="polite"></p>
+          </div>
+          <div class="evo-field">
+            <label for="evo-entreprise">Entreprise</label>
+            <input type="text" id="evo-entreprise" name="entreprise" autocomplete="organization" required aria-describedby="evo-entreprise-erreur">
+            <p class="evo-field__error" id="evo-entreprise-erreur" aria-live="polite"></p>
+          </div>
+          <div class="evo-field">
+            <label for="evo-email">Email</label>
+            <input type="email" id="evo-email" name="email" autocomplete="email" inputmode="email" required aria-describedby="evo-email-erreur">
+            <p class="evo-field__error" id="evo-email-erreur" aria-live="polite"></p>
+          </div>
+          <div class="evo-field">
+            <label for="evo-telephone">Téléphone</label>
+            <input type="tel" id="evo-telephone" name="telephone" autocomplete="tel" inputmode="tel" required aria-describedby="evo-telephone-erreur">
+            <p class="evo-field__error" id="evo-telephone-erreur" aria-live="polite"></p>
+          </div>
+          <div class="evo-field">
+            <label for="evo-effectif">Effectif <span class="evo-field__opt">(facultatif)</span></label>
+            <select id="evo-effectif" name="effectif">
+              <option value="">Choisir</option>
+              <option value="1-5">1 à 5 salariés</option>
+              <option value="6-10">6 à 10 salariés</option>
+              <option value="11-20">11 à 20 salariés</option>
+              <option value="21-50">21 à 50 salariés</option>
+              <option value="50+">Plus de 50 salariés</option>
+            </select>
+          </div>
+          <div class="evo-field">
+            <label for="evo-ca">Chiffre d'affaires approximatif <span class="evo-field__opt">(facultatif)</span></label>
+            <select id="evo-ca" name="chiffre_affaires">
+              <option value="">Choisir</option>
+              <option value="-250k">Moins de 250&nbsp;000&nbsp;€</option>
+              <option value="250k-500k">250&nbsp;000 à 500&nbsp;000&nbsp;€</option>
+              <option value="500k-1m">500&nbsp;000&nbsp;€ à 1 million</option>
+              <option value="1m-3m">1 à 3 millions</option>
+              <option value="3m-10m">3 à 10 millions</option>
+              <option value="10m+">Plus de 10 millions</option>
+            </select>
+          </div>
+          <div class="evo-field evo-field--full">
+            <label for="evo-blocage">Qu'est-ce qui bloque aujourd'hui ? <span class="evo-field__opt">(facultatif)</span></label>
+            <textarea id="evo-blocage" name="blocage" rows="4"></textarea>
+          </div>
+
+          <!-- Anti-spam : champ piège masqué, à laisser vide -->
+          <div class="evo-hp" aria-hidden="true">
+            <label for="evo-site-web">Ne pas remplir ce champ</label>
+            <input type="text" id="evo-site-web" name="site_web" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="evo-form__foot">
+            <button type="submit" class="evo-btn" id="evo-envoyer">Envoyer ma candidature <svg aria-hidden="true" focusable="false"><use href="#evo-i-chevron"></use></svg></button>
+            <p class="evo-cta__reassure">Sans engagement. Échange confidentiel. Réponse claire sous 48h, oui ou non.</p>
+          </div>
+          <p class="evo-form__status" id="evo-form-statut" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="evo-confirm" id="evo-confirmation" tabindex="-1" hidden>
+          <span class="evo-confirm__mark" aria-hidden="true"><svg class="evo-ico" focusable="false"><use href="#evo-i-check"></use></svg></span>
+          <h3 class="evo-h3">Candidature bien reçue.</h3>
+          <p>On lit tout, et on vous répond sous 48h. Une réponse claire, oui ou non.</p>
+          <p>Votre échange reste confidentiel, et vous ne vous engagez à rien.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     SECTION 8 · FAQ
+     ========================================================= -->
+<section class="evo-section evo-faq" id="faq" data-section="faq" aria-labelledby="faq-titre">
+  <div class="evo-wrap">
+    <h2 class="evo-h2 evo-h2--xl" id="faq-titre">FAQ</h2>
+
+    <!-- Tier 1 -->
+    <h3 class="evo-label evo-faq__tier">Les objections bloquantes</h3>
+    <div class="evo-faq__list">
+      <div class="evo-faq__item">
+        <h4 class="evo-faq__q"><button type="button" class="evo-faq__btn" id="faq-b1" aria-expanded="true" aria-controls="faq-p1"><span class="evo-faq__n" aria-hidden="true">01</span><span class="evo-faq__label">Combien ça coûte ?</span><span class="evo-faq__icon" aria-hidden="true"></span></button></h4>
+        <div class="evo-faq__panel" id="faq-p1">
+          <!-- À CONFIRMER : HT ou TTC, et finançable OPCO ou non sur la partie formation. Si oui, argument massif à remonter dans le hero. -->
+          <p><strong>1&nbsp;500&nbsp;€ par mois pendant six mois, soit 9&nbsp;000&nbsp;€ au total.</strong> Ce tarif couvre le diagnostic, le plan de croissance, l'accès aux experts, les formations, le catalogue de services et le suivi. Aucun frais de dossier, aucune commission cachée, aucun surcoût à l'entrée.</p>
+        </div>
+      </div>
+      <div class="evo-faq__item">
+        <h4 class="evo-faq__q"><button type="button" class="evo-faq__btn" id="faq-b2" aria-expanded="true" aria-controls="faq-p2"><span class="evo-faq__n" aria-hidden="true">02</span><span class="evo-faq__label">Qu'est-ce qui se passe si vous n'investissez pas au bout des six mois ?</span><span class="evo-faq__icon" aria-hidden="true"></span></button></h4>
+        <div class="evo-faq__panel" id="faq-p2">
+          <p><strong>Vous gardez tout.</strong> Le diagnostic, le plan, la structure, les process, les compétences transférées à votre équipe. On vous explique précisément pourquoi on ne va pas plus loin, et vous repartez avec une boîte en meilleur état qu'à l'arrivée. Ce n'est pas un lot de consolation, c'est la moitié du travail.</p>
+        </div>
+      </div>
+      <div class="evo-faq__item">
+        <h4 class="evo-faq__q"><button type="button" class="evo-faq__btn" id="faq-b3" aria-expanded="true" aria-controls="faq-p3"><span class="evo-faq__n" aria-hidden="true">03</span><span class="evo-faq__label">Quelle part du capital prenez-vous si vous investissez ?</span><span class="evo-faq__icon" aria-hidden="true"></span></button></h4>
+        <div class="evo-faq__panel" id="faq-p3">
+          <p><strong>Ça se décide au cas par cas, au mois 6.</strong> La participation dépend de la valorisation, du montant investi et de vos besoins réels. On ne fixe pas de règle à l'avance parce qu'aucune entreprise ne ressemble à une autre. Ce qui est certain : vous restez dirigeant et majoritaire, et rien ne se fait sans votre accord.</p>
+        </div>
+      </div>
+      <div class="evo-faq__item">
+        <h4 class="evo-faq__q"><button type="button" class="evo-faq__btn" id="faq-b4" aria-expanded="true" aria-controls="faq-p4"><span class="evo-faq__n" aria-hidden="true">04</span><span class="evo-faq__label">Combien de temps ça me prend par semaine ?</span><span class="evo-faq__icon" aria-hidden="true"></span></button></h4>
+        <div class="evo-faq__panel" id="faq-p4">
+          <p><strong>Une demi-journée en moyenne.</strong> Un point avec vos référents, plus du temps d'exécution qui remplace du travail que vous faisiez déjà mal ou pas du tout. Votre activité continue normalement, c'est même indispensable : on travaille sur des chiffres réels.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tier 2 -->
+    <h3 class="evo-label evo-faq__tier">Les questions logistiques</h3>
+    <div class="evo-faq__list">
+      <div class="evo-faq__item">
+        <h4 class="evo-faq__q"><button type="button" class="evo-faq__btn" id="faq-b5" aria-expanded="true" aria-controls="faq-p5"><span class="evo-faq__n" aria-hidden="true">05</span><span class="evo-faq__label">Quelles entreprises acceptez-vous ?</span><span class="evo-faq__icon" aria-hidden="true"></span></button></h4>
+        <div class="evo-faq__panel" id="faq-p5">
+          <p>TPE et PME, tous secteurs. On regarde surtout une chose au premier échange : est-ce que le blocage est organisationnel, donc réparable en six mois, ou structurel. Si c'est le second cas, on vous le dit et on ne vous prend pas votre argent.</p>
+        </div>
+      </div>
+      <div class="evo-faq__item">
+        <h4 class="evo-faq__q"><button type="button" class="evo-faq__btn" id="faq-b6" aria-expanded="true" aria-controls="faq-p6"><span class="evo-faq__n" aria-hidden="true">06</span><span class="evo-faq__label">Combien de places et quand ?</span><span class="evo-faq__icon" aria-hidden="true"></span></button></h4>
+        <div class="evo-faq__panel" id="faq-p6">
+          <p><strong>Deux promotions par an, 100 places chacune.</strong> Une fois la promotion complète, les candidatures ferment jusqu'au cycle suivant. Ce fonctionnement par cohorte nous permet de mutualiser les formations et de créer un réseau entre dirigeants qui vivent les mêmes problématiques au même moment.</p>
+        </div>
+      </div>
+      <div class="evo-faq__item">
+        <h4 class="evo-faq__q"><button type="button" class="evo-faq__btn" id="faq-b7" aria-expanded="true" aria-controls="faq-p7"><span class="evo-faq__n" aria-hidden="true">07</span><span class="evo-faq__label">À distance ou sur site ?</span><span class="evo-faq__icon" aria-hidden="true"></span></button></h4>
+        <div class="evo-faq__panel" id="faq-p7">
+          <p>Les deux. La majorité des points se font en visio pour ne pas immobiliser votre agenda, et on se déplace quand le sujet l'exige, typiquement sur l'organisation terrain ou le point de vente.</p>
+        </div>
+      </div>
+      <div class="evo-faq__item">
+        <h4 class="evo-faq__q"><button type="button" class="evo-faq__btn" id="faq-b8" aria-expanded="true" aria-controls="faq-p8"><span class="evo-faq__n" aria-hidden="true">08</span><span class="evo-faq__label">Quels documents dois-je fournir ?</span><span class="evo-faq__icon" aria-hidden="true"></span></button></h4>
+        <div class="evo-faq__panel" id="faq-p8">
+          <p>Pour le premier échange, rien du tout. Pour le diagnostic, vos trois derniers bilans, vos chiffres de vente et un accès en lecture à vos outils. Tout est couvert par un accord de confidentialité signé avant le premier document transmis.</p>
+        </div>
+      </div>
+      <div class="evo-faq__item">
+        <h4 class="evo-faq__q"><button type="button" class="evo-faq__btn" id="faq-b9" aria-expanded="true" aria-controls="faq-p9"><span class="evo-faq__n" aria-hidden="true">09</span><span class="evo-faq__label">C'est quoi ce Ø dans votre nom ?</span><span class="evo-faq__icon" aria-hidden="true"></span></button></h4>
+        <div class="evo-faq__panel" id="faq-p9">
+          <p>Un clin d'œil. Ø slide inutile, Ø promesse en l'air, Ø jargon. Et accessoirement ça se prononce «&nbsp;Evo&nbsp;», donc n'ayez pas peur de le dire à voix haute.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="evo-cta">
+      <a class="evo-btn" id="cta-faq" href="#candidater">Candidater à la prochaine promotion <svg aria-hidden="true" focusable="false"><use href="#evo-i-chevron"></use></svg></a>
+      <p class="evo-cta__reassure">Sans engagement. Échange confidentiel. Réponse claire sous 48h, oui ou non.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- =========================================================
+     SECTION 9 · Footer
+     ========================================================= -->
+<footer class="evo-footer">
+  <div class="evo-wrap">
+    <div class="evo-footer__top">
+      <div>
+        <span class="evo-wordmark"><span aria-hidden="true">Ev<span class="evo-o">ø</span></span><span class="evo-sr">Evø</span></span>
+        <p class="evo-footer__baseline">Faire <em>évoluer.</em></p>
+      </div>
+      <ul class="evo-footer__links">
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Mentions légales</a></li>
+        <li><a href="#">Politique de confidentialité</a></li>
+      </ul>
+    </div>
+    <div class="evo-footer__legal">
+      <!-- À CONFIRMER : statut juridique exact d'Evø, à mentionner ici et dans les mentions légales -->
+      <p>Cette page s'adresse aux entreprises candidates à l'accompagnement, pas à des souscripteurs. Elle ne constitue ni une offre de titres ni une promesse de rendement.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   Evø · Maquette B · JS unique, sans dépendance
+   Sommaire : 1 tracking, 2 header, 3 apparitions, 4 vues de section, 5 clics CTA,
+   6 bandeau, 7 compteurs, 8 timeline, 9 halo carte Greg, 10 avant/après,
+   11 FAQ, 12 formulaire
+   ========================================================= */
+(function () {
+  'use strict';
+
+  var doc = document;
+  var root = doc.documentElement;
+  root.classList.add('js');
+
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var finePointer = !!(window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+  var hasIO = 'IntersectionObserver' in window;
+
+  function each(list, fn) { Array.prototype.forEach.call(list, fn); }
+  function clean(text) { return String(text || '').replace(/\s+/g, ' ').trim(); }
+
+  /* ---------- 1. Tracking : point d'entrée unique ---------- */
+  window.evoEvents = window.evoEvents || [];
+  function track(event, payload) {
+    var entry = { event: event, payload: payload || {}, ts: Date.now() };
+    window.evoEvents.push(entry);
+    if (window.console && typeof console.debug === 'function') { console.debug('[evo]', event, entry.payload); }
+    /* Brancher ici l'outil d'analytics quand il sera choisi. */
+  }
+  window.evoTrack = track;
+
+  /* ---------- 2. Header : vert au-dessus du hero, papier ensuite ---------- */
+  var header = doc.getElementById('evo-header');
+  var hero = doc.getElementById('hero');
+  if (hasIO && header && hero) {
+    new IntersectionObserver(function (entries) {
+      header.classList.toggle('is-past-hero', !entries[0].isIntersecting);
+    }, { rootMargin: '-' + header.offsetHeight + 'px 0px 0px 0px', threshold: 0 }).observe(hero);
+  }
+
+  /* ---------- 3. Apparition au scroll : seuls les éléments sous le premier écran sont masqués ---------- */
+  if (hasIO && !reduce) {
+    var firstScreen = window.innerHeight * 0.92;
+    var revealIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          revealIO.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+    each(doc.querySelectorAll('.evo-reveal'), function (el) {
+      if (el.getBoundingClientRect().top > firstScreen) {
+        el.classList.add('is-armed');
+        revealIO.observe(el);
+      }
+    });
+  }
+
+  /* ---------- 4. Vue de section, seuil 50 % (ou la moitié de l'écran pour les sections très hautes) ---------- */
+  if (hasIO) {
+    var seen = {};
+    var steps20 = [];
+    for (var i = 0; i <= 20; i++) { steps20.push(i / 20); }
+    var sectionIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var name = entry.target.getAttribute('data-section');
+        if (seen[name] || !entry.isIntersecting) { return; }
+        var halfOfScreen = entry.intersectionRect.height >= window.innerHeight * 0.5;
+        if (entry.intersectionRatio >= 0.5 || halfOfScreen) {
+          seen[name] = true;
+          track('section_view', { section: name });
+          sectionIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: steps20 });
+    each(doc.querySelectorAll('[data-section]'), function (el) { sectionIO.observe(el); });
+  }
+
+  /* ---------- 5. Clics sur le CTA, distingués par id et libellé ---------- */
+  each(doc.querySelectorAll('a.evo-btn'), function (btn) {
+    btn.addEventListener('click', function () {
+      track('cta_click', { id: btn.id, label: clean(btn.textContent) });
+    });
+  });
+
+  /* ---------- 6. Bandeau défilant : bouton pause ---------- */
+  var marquee = doc.getElementById('evo-marquee');
+  var marqueeToggle = doc.getElementById('evo-marquee-toggle');
+  if (marquee && marqueeToggle) {
+    marqueeToggle.addEventListener('click', function () {
+      var paused = marquee.classList.toggle('is-paused');
+      marqueeToggle.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    });
+  }
+
+  /* ---------- 7. Compteurs des blocs chiffrés (valeur finale écrite en dur dans le HTML) ---------- */
+  function formatFr(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+  var stats = doc.getElementById('evo-stats');
+  if (stats && hasIO && !reduce && stats.getBoundingClientRect().top > window.innerHeight) {
+    var counters = stats.querySelectorAll('[data-count]');
+    each(counters, function (el) { el.textContent = '0'; });
+    var statsIO = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) { return; }
+      statsIO.disconnect();
+      var start = null;
+      var duration = 1300;
+      function frame(now) {
+        if (start === null) { start = now; }
+        var t = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - t, 3);
+        each(counters, function (el) {
+          el.textContent = formatFr(parseInt(el.getAttribute('data-count'), 10) * eased);
+        });
+        if (t < 1) { window.requestAnimationFrame(frame); }
+      }
+      window.requestAnimationFrame(frame);
+    }, { threshold: 0.3 });
+    statsIO.observe(stats);
+  }
+
+  /* ---------- 8. Timeline : la ligne verte se remplit au scroll ---------- */
+  var stepsList = doc.getElementById('evo-steps');
+  if (stepsList) {
+    var stepItems = stepsList.querySelectorAll('.evo-step');
+    if (reduce) {
+      /* Mouvement réduit : ligne pleine (valeur CSS par défaut), toutes les pastilles actives */
+      each(stepItems, function (li) { li.classList.add('is-reached'); });
+    } else {
+      var ticking = false;
+      var updateSteps = function () {
+        ticking = false;
+        var rect = stepsList.getBoundingClientRect();
+        var half = stepItems.length ? stepItems[0].firstElementChild.offsetHeight / 2 : 24;
+        var lineHeight = Math.max(rect.height - half * 2, 1);
+        var progress = (window.innerHeight * 0.62 - (rect.top + half)) / lineHeight;
+        progress = Math.max(0, Math.min(1, progress));
+        stepsList.style.setProperty('--evo-progress', progress.toFixed(4));
+        each(stepItems, function (li) {
+          li.classList.toggle('is-reached', li.offsetTop <= progress * lineHeight + 1);
+        });
+      };
+      var requestUpdate = function () {
+        if (!ticking) { ticking = true; window.requestAnimationFrame(updateSteps); }
+      };
+      window.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', requestUpdate);
+      updateSteps();
+    }
+  }
+
+  /* ---------- 9. Carte Greg : halo discret qui suit la souris (pas au tactile, pas en mouvement réduit) ---------- */
+  var greg = doc.getElementById('evo-greg');
+  if (greg && finePointer && !reduce) {
+    greg.addEventListener('pointermove', function (ev) {
+      var r = greg.getBoundingClientRect();
+      greg.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+      greg.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+    });
+  }
+
+  /* ---------- 10. Avant / Après : lignes à cocher, état conservé ---------- */
+  var BA_KEY = 'evo-avant-apres';
+  var baState = {};
+  try { baState = JSON.parse(window.localStorage.getItem(BA_KEY) || '{}') || {}; } catch (e) { baState = {}; }
+  each(doc.querySelectorAll('.evo-ba__row input[type="checkbox"]'), function (box) {
+    var row = box.closest ? box.closest('.evo-ba__row') : null;
+    function sync() { if (row) { row.classList.toggle('is-checked', box.checked); } }
+    if (baState[box.id]) { box.checked = true; }
+    sync();
+    box.addEventListener('change', function () {
+      sync();
+      baState[box.id] = box.checked;
+      try { window.localStorage.setItem(BA_KEY, JSON.stringify(baState)); } catch (e) { /* stockage indisponible : on continue sans */ }
+      track('beforeafter_check', { id: box.id, checked: box.checked });
+    });
+  });
+
+  /* ---------- 11. FAQ : accordéon, plusieurs questions ouvertes possibles ---------- */
+  each(doc.querySelectorAll('.evo-faq__btn'), function (btn) {
+    var panel = doc.getElementById(btn.getAttribute('aria-controls'));
+    if (!panel) { return; }
+    btn.setAttribute('aria-expanded', 'false');
+    panel.hidden = true;
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      panel.hidden = !open;
+      if (open) {
+        var label = btn.querySelector('.evo-faq__label');
+        track('faq_open', { id: btn.id, question: clean(label ? label.textContent : btn.textContent) });
+      }
+    });
+  });
+
+  /* ---------- 12. Formulaire de candidature ---------- */
+
+  /* POINT D'INTÉGRATION UNIQUE.
+     À CONFIRMER : destination des leads (CRM ou boîte mail) et outil de prise de rendez-vous.
+     Remplacer le corps de cette fonction par l'appel réel, par exemple :
+       return fetch('/api/candidature', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+         .then(function (res) { if (!res.ok) { throw new Error('Envoi refusé'); } return res; });
+     La fonction doit renvoyer une promesse. Aucun envoi réseau n'est fait dans cette maquette. */
+  function submitLead(data) {
+    if (window.console && typeof console.debug === 'function') { console.debug('[evo] submitLead (maquette, aucun envoi)', data); }
+    return Promise.resolve({ ok: true });
+  }
+
+  var form = doc.getElementById('candidater');
+  if (form) {
+    var confirmBox = doc.getElementById('evo-confirmation');
+    var statusBox = doc.getElementById('evo-form-statut');
+    var submitBtn = doc.getElementById('evo-envoyer');
+    var honeypot = doc.getElementById('evo-site-web');
+    var shownAt = Date.now();
+    var MIN_DELAY = 2500; /* contrôle de timing : un humain ne remplit pas 4 champs en moins de 2,5 s */
+    var started = false;
+
+    form.setAttribute('novalidate', 'novalidate');
+
+    var rules = {
+      'evo-nom': function (v) {
+        return v ? '' : "Indiquez votre nom, pour qu'on sache à qui on parle.";
+      },
+      'evo-entreprise': function (v) {
+        return v ? '' : 'Indiquez le nom de votre entreprise.';
+      },
+      'evo-email': function (v) {
+        if (!v) { return "Indiquez votre adresse email, c'est là qu'on vous répond."; }
+        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? '' : 'Cette adresse semble incomplète. Exemple : prenom@entreprise.fr';
+      },
+      'evo-telephone': function (v) {
+        if (!v) { return "Indiquez un numéro de téléphone, pour l'échange de 30 minutes."; }
+        return v.replace(/\D/g, '').length >= 9 ? '' : 'Ce numéro semble incomplet. Exemple : 06 12 34 56 78';
+      }
+    };
+
+    var validate = function (input) {
+      var rule = rules[input.id];
+      if (!rule) { return ''; }
+      var message = rule(clean(input.value));
+      var errorBox = doc.getElementById(input.id + '-erreur');
+      if (errorBox) { errorBox.textContent = message; }
+      if (message) { input.setAttribute('aria-invalid', 'true'); } else { input.removeAttribute('aria-invalid'); }
+      return message;
+    };
+
+    Object.keys(rules).forEach(function (id) {
+      var input = doc.getElementById(id);
+      if (!input) { return; }
+      input.addEventListener('blur', function () { if (clean(input.value) || input.hasAttribute('aria-invalid')) { validate(input); } });
+      input.addEventListener('input', function () { if (input.hasAttribute('aria-invalid')) { validate(input); } });
+    });
+
+    form.addEventListener('input', function () {
+      if (!started) { started = true; track('form_start', {}); }
+    });
+
+    var showConfirmation = function () {
+      form.hidden = true;
+      if (confirmBox) { confirmBox.hidden = false; confirmBox.focus(); }
+    };
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      if (statusBox) { statusBox.textContent = ''; }
+
+      var firstInvalid = null;
+      Object.keys(rules).forEach(function (id) {
+        var input = doc.getElementById(id);
+        if (input && validate(input) && !firstInvalid) { firstInvalid = input; }
+      });
+      if (firstInvalid) { firstInvalid.focus(); return; }
+
+      /* Anti-spam sans CAPTCHA : champ piège rempli, on simule un succès sans rien transmettre */
+      if (honeypot && honeypot.value) { showConfirmation(); return; }
+      /* Anti-spam : envoi trop rapide, on demande simplement de recommencer */
+      if (Date.now() - shownAt < MIN_DELAY) {
+        if (statusBox) { statusBox.textContent = 'Envoi un peu rapide. Patientez 2 secondes, puis renvoyez le formulaire.'; }
+        return;
+      }
+
+      var data = {
+        nom: clean(form.elements.nom.value),
+        entreprise: clean(form.elements.entreprise.value),
+        email: clean(form.elements.email.value),
+        telephone: clean(form.elements.telephone.value),
+        effectif: form.elements.effectif.value,
+        chiffre_affaires: form.elements.chiffre_affaires.value,
+        blocage: clean(form.elements.blocage.value),
+        page: 'maquette-b-vert-profond',
+        envoye_le: new Date().toISOString()
+      };
+
+      if (submitBtn) { submitBtn.disabled = true; }
+      if (statusBox) { statusBox.textContent = 'Envoi en cours.'; }
+
+      submitLead(data).then(function () {
+        /* Aucune donnée personnelle dans le tracking */
+        track('form_submit_success', { effectif: data.effectif, chiffre_affaires: data.chiffre_affaires });
+        showConfirmation();
+      }).catch(function () {
+        if (submitBtn) { submitBtn.disabled = false; }
+        if (statusBox) { statusBox.textContent = "L'envoi n'a pas abouti. Réessayez dans un instant."; }
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
