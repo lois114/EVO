@@ -211,6 +211,22 @@ main:focus{outline:none}
   .evo-benefit:last-child{padding-right:0}
 }
 
+/* ---------- Premier écran : le bouton « Candidater » doit être visible sans scroller (repères : mobile 360x640, portable 1366x650).
+   L'accroche-problème passe sous le premier écran, elle ouvre la liste des bénéfices. Aucun texte n'est supprimé. ---------- */
+.evo-hero{padding-top:clamp(1.25rem,2.6vw,2.25rem)}
+.evo-hero__main .evo-hero__title{margin-top:0}
+.evo-hero__main .evo-hero__sub{margin-top:clamp(.875rem,1.8vw,1.25rem)}
+.evo-hero .evo-cta{margin-top:clamp(1.25rem,2.4vw,1.75rem);gap:.75rem}
+.evo-hero__kicker{margin-top:clamp(2.5rem,6vw,4.5rem)}
+.evo-benefits{margin-top:clamp(1.25rem,2.5vw,1.75rem)}
+@media (max-width:599px){:root{--header-h:3.75rem}}
+.evo-hero::before{background:radial-gradient(ellipse 50rem 28rem at 50% 17rem, var(--deep) 30%, transparent 100%)}
+.evo-hero__badge{margin-bottom:clamp(1rem,2vw,1.25rem)}
+.evo-hero__main .evo-hero__title{font-size:clamp(2rem,4.6vw,3.75rem)}
+.evo-hero__main .evo-hero__sub{font-size:clamp(1rem,1.3vw,1.125rem);line-height:1.5;max-width:46em}
+.evo-hero__kicker{text-align:center;margin-inline:auto}
+@media (max-width:599px){.evo-hero__badge{order:5;margin:1.5rem 0 0}}
+
 /* ---------- Bandeau défilant (pattern Marquee) ---------- */
 .evo-marquee{position:relative;overflow:hidden;border-block:1px solid var(--line);background:var(--bg)}
 .evo-marquee__track{display:flex;width:max-content;animation:evo-marquee 56s linear infinite}
@@ -557,7 +573,6 @@ main:focus{outline:none}
     <div class="evo-hero__main">
       <!-- À CONFIRMER : nom de la promotion (ex. « Printemps 26 ») et date de clôture des candidatures. Bloquant. -->
       <p class="evo-hero__badge evo-hero__anim"><span class="evo-hero__badge-tag">Promotion <span class="evo-tbc">[nom]</span></span> <span>100 places · candidatures ouvertes jusqu'au <span class="evo-tbc">[date]</span>.</span></p>
-      <p class="evo-hero__kicker evo-hero__anim evo-hero__anim--2">Votre boîte tourne. Elle ne décolle pas. Et vous savez déjà pourquoi : vous êtes seul à bord.</p>
       <h1 class="evo-hero__title evo-hero__anim evo-hero__anim--2" id="hero-titre">6 mois pour structurer votre boîte. Ensuite, on envisage d'y mettre notre argent.</h1>
       <p class="evo-hero__sub evo-hero__anim evo-hero__anim--3">Evø est un fonds d'investissement qui fait tout à l'envers. Au lieu de vous faire signer après trois rendez-vous et un business plan que personne ne relira, on passe six mois à travailler avec vous. Si ça décolle, on met notre argent. <strong><span class="evo-o">Ø</span> slide. <span class="evo-o">Ø</span> anglicisme. <span class="evo-o">Ø</span> type en costume qui vous explique votre métier.</strong></p>
       <div class="evo-cta evo-hero__anim evo-hero__anim--4">
@@ -573,6 +588,8 @@ main:focus{outline:none}
       <p>Vous restez dirigeant, majoritaire, et maître de vos décisions du premier au dernier jour.</p>
     </div>
 
+    <!-- Accroche-problème, déplacée sous le premier écran pour que le CTA soit visible dès l'arrivée -->
+    <p class="evo-hero__kicker">Votre boîte tourne. Elle ne décolle pas. Et vous savez déjà pourquoi : vous êtes seul à bord.</p>
     <ul class="evo-benefits">
       <li class="evo-benefit">
         <svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-check"></use></svg>

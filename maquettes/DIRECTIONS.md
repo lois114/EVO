@@ -51,6 +51,8 @@ Copies de `b-vert-profond.html`. Tout est identique à B, sauf le haut de page. 
 
 Non repris des patterns d'origine, car contraires à `CLAUDE.md` : menu de navigation, liens sortants, second bouton, logos partenaires, police serif.
 
+Premier écran : sur B1, B2 et B3, le bouton « Candidater à la prochaine promotion » est visible sans scroller (repères mesurés : mobile 360x640 et 390x664, portable 1024x650 et 1366x650). Pour y arriver, le H1 et le sous-titre sont plus compacts, l'accroche-problème passe sous le premier écran (elle ouvre la liste des bénéfices) et, sur mobile, le badge promotion de B2 et B3 passe sous le CTA. Aucun texte du brief n'est supprimé.
+
 Photos : les 3 visuels de `/assets/img` (`hero-atelier`, `hero-echange`, `hero-reunion`, en WebP avec repli JPG) sont des **photos provisoires** Unsplash sous licence libre, servies en local. Elles sont décoratives (`alt=""`) et à remplacer par de vraies photos Evø avant publication.
 
 ## Règles communes aux 3 maquettes
