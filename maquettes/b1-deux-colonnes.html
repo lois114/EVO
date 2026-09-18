@@ -168,18 +168,18 @@ main:focus{outline:none}
 .evo-hero__main{display:flex;flex-direction:column;min-width:0;max-width:none}
 .evo-hero__visual{position:relative;min-width:0}
 .evo-hero__visual::before{content:"";position:absolute;z-index:0;top:-2.5rem;left:-2.5rem;width:18rem;height:18rem;border-radius:50%;background:var(--evo-gold);opacity:.2;filter:blur(64px);pointer-events:none}
-.evo-hero__card{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:space-between;gap:1rem;height:100%;min-height:19rem;padding:clamp(1.25rem,3vw,2rem);border-radius:calc(var(--radius) + 4px);background:var(--surface);color:var(--text);box-shadow:var(--card-shadow);overflow:hidden}
-.evo-hero__card-sign{font-size:clamp(1.25rem,1.8vw,1.5rem);font-weight:500;line-height:1.2;letter-spacing:-.01em}
-.evo-hero__card-sign em{font-style:italic;font-weight:400}
-.evo-hero__card-glyph{align-self:center;font-weight:700;font-size:clamp(11rem,40vw,15rem);line-height:.8;color:var(--evo-gold);-webkit-user-select:none;user-select:none}
-.evo-hero__card .evo-hero__urgency{padding-block:1rem 0;border-block:0;border-top:1px solid var(--line);color:var(--text)}
+.evo-hero__card{position:relative;z-index:1;display:flex;flex-direction:column;height:100%;border-radius:calc(var(--radius) + 4px);background:var(--surface);color:var(--text);box-shadow:var(--card-shadow);overflow:hidden}
+.evo-hero__photo{position:relative;display:block;flex:1 1 auto;min-height:0;aspect-ratio:4 / 3}
+.evo-hero__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.evo-hero__card-mark{position:absolute;z-index:1;top:1rem;left:1rem;display:flex;align-items:center;justify-content:center;width:3.25rem;height:3.25rem;border-radius:var(--radius-sm);background:var(--deep);color:var(--evo-gold);font-weight:700;font-size:1.875rem;line-height:1;-webkit-user-select:none;user-select:none}
+.evo-hero__card .evo-hero__urgency{padding:1rem 1.25rem;border-block:0;color:var(--text)}
 @media (min-width:1024px){
   .evo-hero__grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(3rem,5vw,4.5rem);align-items:stretch}
   .evo-hero__main{justify-content:space-between}
   .evo-hero__main .evo-hero__title{font-size:clamp(2.75rem,4.6vw,4.25rem)}
   .evo-hero__main .evo-hero__sub{font-size:clamp(1.125rem,1.4vw,1.3125rem)}
   .evo-hero__card{min-height:36rem}
-  .evo-hero__card-glyph{font-size:clamp(18rem,34vw,30rem)}
+  .evo-hero__photo{aspect-ratio:auto}
 }
 .evo-hero__kicker{font-family:var(--font-mono);font-size:clamp(.875rem,1.2vw,1rem);line-height:1.55;color:var(--on-deep);max-width:34em}
 .evo-hero__title{margin-top:clamp(1.25rem,2.5vw,2rem);font-size:var(--fs-h1);font-weight:700;line-height:1.02;letter-spacing:-.04em;max-width:12.5em}
@@ -552,11 +552,15 @@ main:focus{outline:none}
       </div>
     </div>
 
-    <!-- Carte monogramme, à la place de la photo du pattern d'origine. Elle porte la signature et l'urgence datée. -->
+    <!-- Carte photo, comme dans le pattern d'origine. Elle porte le monogramme et l'urgence datée. -->
     <div class="evo-hero__visual">
       <div class="evo-hero__card">
-        <p class="evo-hero__card-sign">Faire <em>évoluer.</em></p>
-        <span class="evo-hero__card-glyph" aria-hidden="true">ø</span>
+        <span class="evo-hero__card-mark" aria-hidden="true">ø</span>
+        <!-- Photo provisoire (Unsplash, licence libre), à remplacer par une vraie photo Evø. Décorative, donc alt vide. -->
+        <picture class="evo-hero__photo">
+          <source srcset="../assets/img/hero-atelier.webp" type="image/webp">
+          <img src="../assets/img/hero-atelier.jpg" alt="" width="960" height="1400" decoding="async" fetchpriority="high">
+        </picture>
         <!-- À CONFIRMER : nom de la promotion (ex. « Printemps 26 ») et date de clôture des candidatures. Bloquant. -->
         <p class="evo-hero__urgency">Promotion <span class="evo-tbc">[nom]</span> · 100 places · candidatures ouvertes jusqu'au <span class="evo-tbc">[date]</span>. Deux promotions par an, pas une de plus.</p>
       </div>

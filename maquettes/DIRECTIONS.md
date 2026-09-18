@@ -45,10 +45,13 @@ Copies de `b-vert-profond.html`. Tout est identique à B, sauf le haut de page. 
 
 | Fichier | Pattern 21st.dev | Ce qui change par rapport à B |
 |---|---|---|
-| `b1-deux-colonnes.html` | Hero Fashion (Kokonut UI) | Hero en 2 colonnes sur desktop. À gauche, accroche, H1, sous-titre et CTA répartis sur la hauteur. À droite, une carte monogramme `ø` doré (à la place de la photo du pattern) qui porte « Faire *évoluer.* » et l'urgence datée. Halo doré flou derrière la carte. Le `ø` en filigrane disparaît. |
-| `b2-capsule.html` | Hero Section 6 (Tailark) | Filet pointillé sous le header. Pastille « Promotion [nom] · 100 places » au-dessus du titre, H1 plus compact, texte centré sur mobile et tablette. Le CTA devient une capsule champ email + bouton : l'email est reporté dans le formulaire `#candidater`, rien n'est envoyé depuis le hero. À droite sur desktop, aperçu décoratif du parcours (frise + étapes), masqué aux lecteurs d'écran. |
+| `b1-deux-colonnes.html` | Hero Fashion (Kokonut UI) | Hero en 2 colonnes sur desktop. À gauche, accroche, H1, sous-titre et CTA répartis sur la hauteur. À droite, une carte photo (artisane à son établi) avec le monogramme `ø` en pastille et l'urgence datée en pied de carte. Halo doré flou derrière la carte. Le `ø` en filigrane disparaît. |
+| `b2-capsule.html` | Hero Section 6 (Tailark) | Filet pointillé sous le header. Pastille « Promotion [nom] · 100 places » au-dessus du titre, H1 plus compact, texte centré sur mobile et tablette. Le CTA devient une capsule champ email + bouton : l'email est reporté dans le formulaire `#candidater`, rien n'est envoyé depuis le hero. Photo décorative (échange autour de documents) : à fond perdu à droite avec fondu vers le vert sur desktop, en carte sous le CTA sur mobile et tablette. |
+| `b3-centre.html` | Responsive Hero Banner | Hero centré. Dans le header, le bouton est logé dans une pastille de verre dépoli avec la mention « 100 places par cycle, deux cycles par an » (masquée sur mobile). Badge « Promotion [nom] · 100 places » au-dessus du titre, photo de fond (réunion d'équipe) passée en niveaux de gris sous le vert, avec un voile vert plein au centre pour garder le texte lisible. La réassurance secondaire remonte sous le CTA, à la place de la ligne « partenaires ». Entrée en cascade au chargement, en CSS seul, coupée si `prefers-reduced-motion`. |
 
-Non repris des patterns d'origine, car contraires à `CLAUDE.md` : menu de navigation, liens sortants, second bouton, photo (aucun visuel photo disponible).
+Non repris des patterns d'origine, car contraires à `CLAUDE.md` : menu de navigation, liens sortants, second bouton, logos partenaires, police serif.
+
+Photos : les 3 visuels de `/assets/img` (`hero-atelier`, `hero-echange`, `hero-reunion`, en WebP avec repli JPG) sont des **photos provisoires** Unsplash sous licence libre, servies en local. Elles sont décoratives (`alt=""`) et à remplacer par de vraies photos Evø avant publication.
 
 ## Règles communes aux 3 maquettes
 - Un fichier HTML autonome par maquette, CSS et JS en ligne pour que la maquette se partage en un fichier. L'arborescence `/css` et `/js` de `CLAUDE.md` viendra avec la direction retenue.

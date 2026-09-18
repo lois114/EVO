@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Evø Vert profond · B2 Capsule</title>
+<title>Evø Vert profond · B3 Centré</title>
 <meta name="description" content="Evø, fonds d'investissement pour TPE et PME : 6 mois d'accompagnement pour structurer votre entreprise, puis une décision d'entrée au capital. Candidatez à la prochaine promotion.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
 <style>
 /* =========================================================
-   Evø · Maquette B2 « Vert profond, capsule »
-   Identique à la maquette B, seuls le header et le hero changent (pattern 21st.dev « Hero Section 6 » de Tailark, réécrit sans dépendance).
-   Le menu du pattern d'origine n'est pas repris : pas de navigation sur cette page.
+   Evø · Maquette B3 « Vert profond, centré »
+   Identique à la maquette B, seuls le header et le hero changent (pattern 21st.dev « Responsive Hero Banner », réécrit sans dépendance).
+   Non repris du pattern d'origine : menu de navigation, second bouton, logos partenaires, photo de fond, police serif.
    Fichier autonome. Aucune couleur en dur hors du bloc tokens.
    ========================================================= */
 
@@ -53,6 +53,7 @@
   --halo:var(--on-deep-line);         /* halo de la carte Greg */
   --btn-hover:var(--evo-gold);
   --header-paper:var(--bg);
+  --glass:var(--on-deep-line);        /* verre dépoli des pastilles sur fond vert */
   --ring:var(--text);                 /* anneau de focus, redéfini sur fond vert */
 
   --header-h:4.25rem;
@@ -80,6 +81,7 @@
     --halo:color-mix(in srgb, var(--evo-gold) 16%, transparent);
     --btn-hover:color-mix(in srgb, var(--evo-gold) 88%, var(--on-gold));
     --header-paper:color-mix(in srgb, var(--bg) 92%, transparent);
+    --glass:color-mix(in srgb, var(--on-deep) 8%, transparent);
   }
 }
 
@@ -153,78 +155,61 @@ main:focus{outline:none}
 /* =========================================================
    SECTION 0 · Header
    ========================================================= */
-.evo-header{position:sticky;top:env(safe-area-inset-top, 0px);z-index:50;background:var(--deep);color:var(--on-deep);border-bottom:1px dashed var(--on-deep-line);--ring:var(--on-deep);transition:background-color .25s ease, color .25s ease, border-color .25s ease}
+.evo-header{position:sticky;top:env(safe-area-inset-top, 0px);z-index:50;background:var(--deep);color:var(--on-deep);border-bottom:1px solid transparent;--ring:var(--on-deep);transition:background-color .25s ease, color .25s ease, border-color .25s ease}
 .evo-header__inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:var(--header-h);transition:min-height .25s ease}
 .evo-header.is-past-hero{background:var(--header-paper);color:var(--text);border-bottom-color:var(--line);--ring:var(--text);-webkit-backdrop-filter:saturate(1.2) blur(10px);backdrop-filter:saturate(1.2) blur(10px)}
 .evo-header.is-past-hero .evo-header__inner{min-height:3.75rem}
+.evo-header__pill{display:flex;align-items:center;gap:.25rem;padding:.25rem;border:1px solid var(--on-deep-line);border-radius:999px;background:var(--glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:border-color .25s ease, background-color .25s ease}
+.evo-header__mention{display:none;padding-inline:.875rem .625rem;font-family:var(--font-mono);font-size:.75rem;font-weight:500;line-height:1.3;letter-spacing:.04em;white-space:nowrap}
+.evo-header.is-past-hero .evo-header__pill{border-color:var(--line);background:transparent}
+@media (min-width:768px){.evo-header__mention{display:block}}
 
 /* =========================================================
    SECTION 1 · Hero
    ========================================================= */
-.evo-hero{position:relative;overflow:hidden;padding-block:clamp(2.5rem,4.5vw,3.75rem) clamp(1.25rem,2.5vw,2rem)}
+/* Variante B3 : hero centré sur photo de fond. La photo passe en niveaux de gris sous le vert, un voile vert plein garde le texte lisible au centre. */
+.evo-hero{position:relative;overflow:hidden;isolation:isolate;padding-block:clamp(2.5rem,5vw,4.5rem) clamp(1.25rem,2.5vw,2rem)}
+.evo-hero__bg{position:absolute;z-index:-2;inset:0 0 auto 0;height:min(100%,58rem);-webkit-mask-image:linear-gradient(to bottom, var(--deep) 62%, transparent);mask-image:linear-gradient(to bottom, var(--deep) 62%, transparent);pointer-events:none}
+.evo-hero__bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 25%;filter:grayscale(1) brightness(.8);opacity:.34}
+.evo-hero::before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse 50rem 30rem at 50% 24rem, var(--deep) 30%, transparent 100%);pointer-events:none}
 .evo-glyph{position:absolute;z-index:0;top:-.12em;right:-.14em;font-family:var(--font-sans);font-weight:700;font-size:clamp(18rem,45vw,40rem);line-height:1;color:var(--glyph);pointer-events:none;-webkit-user-select:none;user-select:none}
 .evo-hero > .evo-wrap{position:relative;z-index:1}
-/* Variante B2 : colonne de texte étroite, pastille promotion, capsule email + bouton, aperçu du parcours en fondu à droite. */
-.evo-hero__top{position:relative}
-.evo-hero__main{position:relative;z-index:2;max-width:38rem;margin-inline:auto;text-align:center}
-.evo-hero__main .evo-hero__kicker,.evo-hero__main .evo-hero__sub{margin-inline:auto}
-.evo-hero__pill{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.375rem .75rem;margin-bottom:clamp(1.5rem,3vw,2.25rem);padding:.3125rem .875rem .3125rem .3125rem;border:1px solid var(--on-deep-line);border-radius:var(--radius-sm);font-size:var(--fs-small);line-height:1.4;text-align:left}
-.evo-hero__pill-tag{padding:.25rem .625rem;border-radius:8px;background:var(--deep-2);font-family:var(--font-mono);font-size:.8125rem;font-weight:500;letter-spacing:.02em}
-.evo-hero__pill .evo-tbc{border-radius:5px}
+.evo-hero__main{display:flex;flex-direction:column;align-items:center;max-width:60rem;margin-inline:auto;text-align:center}
+.evo-hero__badge{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.375rem .75rem;margin-bottom:clamp(1.5rem,3vw,2rem);padding:.375rem 1rem .375rem .375rem;border:1px solid var(--on-deep-line);border-radius:var(--radius);background:var(--glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:var(--fs-small);font-weight:500;line-height:1.4}
+.evo-hero__badge-tag{padding:.1875rem .625rem;border-radius:999px;background:var(--on-deep);color:var(--on-gold);font-family:var(--font-mono);font-size:.8125rem;font-weight:500;letter-spacing:.02em}
+@media (min-width:600px){.evo-hero__badge{border-radius:999px}}
 .evo-hero__kicker{font-family:var(--font-mono);font-size:clamp(.875rem,1.2vw,1rem);line-height:1.55;color:var(--on-deep);max-width:34em}
 .evo-hero__title{margin-top:clamp(1.25rem,2.5vw,2rem);font-size:var(--fs-h1);font-weight:700;line-height:1.02;letter-spacing:-.04em;max-width:12.5em}
 .evo-hero__sub{margin-top:clamp(1.5rem,3vw,2.25rem);font-size:clamp(1.1875rem,1.7vw,1.5rem);line-height:1.45;color:var(--on-deep-muted);max-width:36em}
 .evo-hero__sub strong{color:var(--on-deep)}
 .evo-hero .evo-cta{margin-top:clamp(2rem,4vw,3rem);align-items:center}
-.evo-hero__main .evo-hero__title{font-size:clamp(2.25rem,4.4vw,3.5rem);line-height:1.05;letter-spacing:-.035em;max-width:none}
-.evo-hero__main .evo-hero__sub{font-size:clamp(1.0625rem,1.3vw,1.1875rem);line-height:1.55}
+.evo-hero__main .evo-hero__title{font-size:clamp(2.375rem,5.2vw,4.5rem);line-height:1.04;max-width:none}
+.evo-hero__main .evo-hero__sub{font-size:clamp(1.0625rem,1.45vw,1.25rem);line-height:1.55;max-width:40em}
 
-/* Capsule : le champ email et le bouton unique dans la même forme. L'email est reporté dans le formulaire de candidature. */
-.evo-capsule{container-type:inline-size;width:100%}
-.evo-capsule__box{position:relative;display:flex;flex-direction:column;gap:.375rem;padding:.375rem;border-radius:calc(var(--radius) + 4px);background:var(--surface);color:var(--text);box-shadow:var(--card-shadow)}
-.evo-capsule__box:focus-within{outline:2px solid var(--ring);outline-offset:3px}
-.evo-capsule__box .evo-ico{position:absolute;left:1.25rem;top:1.4375rem;color:var(--text-soft);pointer-events:none}
-.evo-capsule__input{flex:1 1 auto;min-width:0;width:100%;min-height:3.375rem;padding:.5rem 1rem .5rem 3.25rem;border:0;border-radius:var(--radius);background:transparent;color:var(--text);font-size:1rem;line-height:1.4}
-.evo-capsule__input::placeholder{color:var(--text-soft);opacity:1}
-.evo-capsule__input:focus,.evo-capsule__input:focus-visible{outline:none} /* le focus est porté par la capsule entière, juste au-dessus */
-.evo-capsule .evo-btn{flex:none;width:100%}
-.evo-capsule .evo-btn:focus-visible{outline-color:var(--text);outline-offset:-5px}
-/* Capsule en ligne seulement quand elle est assez large pour laisser lire une adresse email entière */
-@container (min-width:35rem){
-  .evo-capsule__box{flex-direction:row;align-items:center;border-radius:999px}
-  .evo-capsule__input{border-radius:999px}
-  .evo-capsule .evo-btn{width:auto;min-height:3rem;padding-inline:1.25rem;font-size:.9375rem}
+/* Entrée en cascade au chargement, CSS seul. Rien n'est masqué si le mouvement est réduit. */
+@media (prefers-reduced-motion:no-preference){
+  .evo-hero__anim{animation:evo-fade-slide .7s ease both}
+  .evo-hero__anim--2{animation-delay:.08s}
+  .evo-hero__anim--3{animation-delay:.16s}
+  .evo-hero__anim--4{animation-delay:.24s}
+  .evo-hero__anim--5{animation-delay:.36s}
 }
+@keyframes evo-fade-slide{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
-/* Photo décorative : carte sous le CTA sur mobile et tablette, fond perdu à droite avec fondu sur desktop (comme le pattern d'origine). */
-.evo-hero__visual{position:relative;z-index:1;display:block;aspect-ratio:16 / 10;margin-top:clamp(2rem,5vw,3rem);border-radius:calc(var(--radius) + 4px);overflow:hidden;box-shadow:var(--card-shadow)}
-.evo-hero__visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
-@media (min-width:1024px){
-  .evo-hero > .evo-glyph{display:none}
-  .evo-hero__main{width:50%;margin-inline:0;text-align:left}
-  .evo-hero__main .evo-hero__kicker,.evo-hero__main .evo-hero__sub{margin-inline:0}
-  .evo-hero__pill{justify-content:flex-start}
-  .evo-hero .evo-cta{align-items:flex-start}
-  .evo-hero__visual{position:absolute;top:0;bottom:0;left:50%;right:calc(50% - 50vw);aspect-ratio:auto;margin-top:0;border-radius:calc(var(--radius) + 4px) 0 0 calc(var(--radius) + 4px);box-shadow:none;pointer-events:none}
-  .evo-hero__visual::after{content:"";position:absolute;inset:0;background:linear-gradient(to right, var(--deep), transparent 38%),linear-gradient(to top, var(--deep), transparent 22%)}
-}
-
-.evo-benefits{display:grid;margin-top:clamp(3rem,7vw,6rem);border-top:1px solid var(--on-deep-line)}
+.evo-benefits{display:grid;margin-top:clamp(2rem,4vw,3rem);border-top:1px solid var(--on-deep-line)}
 .evo-benefit{display:grid;grid-template-columns:1.5rem 1fr;gap:.875rem;padding-block:1.5rem;border-bottom:1px solid var(--on-deep-line)}
 .evo-benefit .evo-ico{width:1.5rem;height:1.5rem;margin-top:.15rem;color:var(--evo-gold)}
 .evo-benefit__title{display:block;font-size:1.25rem;line-height:1.25;letter-spacing:-.01em}
 .evo-benefit__text{display:block;margin-top:.5rem;font-size:1rem;line-height:1.55;color:var(--on-deep-soft)}
-.evo-hero__trust{display:grid;gap:1rem;padding-block:1.75rem}
-.evo-hero__trust p{max-width:34em}
-.evo-hero__urgency{padding-block:1rem;border-block:1px solid var(--on-deep-line);text-align:center;font-family:var(--font-mono);font-size:clamp(.8125rem,1.1vw,.9375rem);line-height:1.7;letter-spacing:.01em}
+.evo-hero__trust{display:grid;gap:.5rem;justify-items:center;margin-top:clamp(3rem,7vw,5.5rem);text-align:center;font-size:1rem;color:var(--on-deep-soft)}
+.evo-hero__trust p{max-width:44em}
+.evo-hero__urgency{padding-block:1rem;border-bottom:1px solid var(--on-deep-line);text-align:center;font-family:var(--font-mono);font-size:clamp(.8125rem,1.1vw,.9375rem);line-height:1.7;letter-spacing:.01em}
 @media (min-width:860px){
   .evo-benefits{grid-template-columns:repeat(3,1fr)}
   .evo-benefit{padding:2rem 2rem 2.25rem;border-left:1px solid var(--on-deep-line)}
   .evo-benefit:first-child{padding-left:0;border-left:0}
   .evo-benefit:last-child{padding-right:0}
-  .evo-hero__trust{grid-template-columns:1fr 1fr;gap:2rem 4rem;padding-block:2.25rem}
 }
-@media (min-width:1024px){.evo-hero__urgency{text-align:left}}
 
 /* ---------- Bandeau défilant (pattern Marquee) ---------- */
 .evo-marquee{position:relative;overflow:hidden;border-block:1px solid var(--line);background:var(--bg)}
@@ -540,7 +525,6 @@ main:focus{outline:none}
   <symbol id="evo-i-check" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
   <symbol id="evo-i-cross" viewBox="0 0 20 20"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></symbol>
   <symbol id="evo-i-chevron" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
-  <symbol id="evo-i-mail" viewBox="0 0 20 20"><path d="M2.75 5.25h14.5v9.5H2.75zM3 5.75l7 5.5 7-5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
   <symbol id="evo-i-pause" viewBox="0 0 16 16"><path d="M5 3v10M11 3v10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path></symbol>
   <symbol id="evo-i-play" viewBox="0 0 16 16"><path d="M5 3l8 5-8 5z" fill="currentColor"></path></symbol>
 </svg>
@@ -551,7 +535,10 @@ main:focus{outline:none}
 <header class="evo-header" id="evo-header">
   <div class="evo-wrap evo-header__inner">
     <span class="evo-wordmark"><span aria-hidden="true">Ev<span class="evo-o">ø</span></span><span class="evo-sr">Evø</span></span>
-    <a class="evo-btn evo-btn--sm" id="cta-header" href="#candidater">Rejoindre la promotion</a>
+    <div class="evo-header__pill">
+      <span class="evo-header__mention">100 places par cycle, deux cycles par an</span>
+      <a class="evo-btn evo-btn--sm" id="cta-header" href="#candidater">Rejoindre la promotion</a>
+    </div>
   </div>
 </header>
 
@@ -561,38 +548,29 @@ main:focus{outline:none}
      SECTION 1 · Hero
      ========================================================= -->
 <section class="evo-hero evo-deep" id="hero" data-section="hero" aria-labelledby="hero-titre">
-  <span class="evo-glyph" aria-hidden="true">ø</span>
+  <!-- Photo provisoire (Unsplash, licence libre), à remplacer par une vraie photo Evø. Décorative, donc alt vide. -->
+  <picture class="evo-hero__bg" aria-hidden="true">
+    <source srcset="../assets/img/hero-reunion.webp" type="image/webp">
+    <img src="../assets/img/hero-reunion.jpg" alt="" width="1600" height="1000" decoding="async" fetchpriority="high">
+  </picture>
   <div class="evo-wrap">
-    <div class="evo-hero__top">
     <div class="evo-hero__main">
       <!-- À CONFIRMER : nom de la promotion (ex. « Printemps 26 ») et date de clôture des candidatures. Bloquant. -->
-      <p class="evo-hero__pill"><span class="evo-hero__pill-tag">Promotion <span class="evo-tbc">[nom]</span></span> <span>100 places · candidatures ouvertes jusqu'au <span class="evo-tbc">[date]</span>.</span></p>
-      <p class="evo-hero__kicker">Votre boîte tourne. Elle ne décolle pas. Et vous savez déjà pourquoi : vous êtes seul à bord.</p>
-      <h1 class="evo-hero__title" id="hero-titre">6 mois pour structurer votre boîte. Ensuite, on envisage d'y mettre notre argent.</h1>
-      <p class="evo-hero__sub">Evø est un fonds d'investissement qui fait tout à l'envers. Au lieu de vous faire signer après trois rendez-vous et un business plan que personne ne relira, on passe six mois à travailler avec vous. Si ça décolle, on met notre argent. <strong><span class="evo-o">Ø</span> slide. <span class="evo-o">Ø</span> anglicisme. <span class="evo-o">Ø</span> type en costume qui vous explique votre métier.</strong></p>
-      <div class="evo-cta">
-        <!-- Capsule : même action que tous les autres CTA. L'email saisi est reporté dans le formulaire #candidater, rien n'est envoyé ici.
-             Sans JS, le bouton mène simplement au formulaire (le champ n'a pas de name, aucune donnée ne part dans l'URL). -->
-        <form class="evo-capsule" id="evo-capsule" action="#candidater" method="get">
-          <label class="evo-sr" for="evo-capsule-email">Email</label>
-          <div class="evo-capsule__box">
-            <svg class="evo-ico" aria-hidden="true" focusable="false"><use href="#evo-i-mail"></use></svg>
-            <input class="evo-capsule__input" type="email" id="evo-capsule-email" autocomplete="email" inputmode="email" placeholder="prenom@entreprise.fr">
-            <button type="submit" class="evo-btn" id="cta-hero">Candidater à la prochaine promotion <svg aria-hidden="true" focusable="false"><use href="#evo-i-chevron"></use></svg></button>
-          </div>
-        </form>
+      <p class="evo-hero__badge evo-hero__anim"><span class="evo-hero__badge-tag">Promotion <span class="evo-tbc">[nom]</span></span> <span>100 places · candidatures ouvertes jusqu'au <span class="evo-tbc">[date]</span>.</span></p>
+      <p class="evo-hero__kicker evo-hero__anim evo-hero__anim--2">Votre boîte tourne. Elle ne décolle pas. Et vous savez déjà pourquoi : vous êtes seul à bord.</p>
+      <h1 class="evo-hero__title evo-hero__anim evo-hero__anim--2" id="hero-titre">6 mois pour structurer votre boîte. Ensuite, on envisage d'y mettre notre argent.</h1>
+      <p class="evo-hero__sub evo-hero__anim evo-hero__anim--3">Evø est un fonds d'investissement qui fait tout à l'envers. Au lieu de vous faire signer après trois rendez-vous et un business plan que personne ne relira, on passe six mois à travailler avec vous. Si ça décolle, on met notre argent. <strong><span class="evo-o">Ø</span> slide. <span class="evo-o">Ø</span> anglicisme. <span class="evo-o">Ø</span> type en costume qui vous explique votre métier.</strong></p>
+      <div class="evo-cta evo-hero__anim evo-hero__anim--4">
+        <a class="evo-btn" id="cta-hero" href="#candidater">Candidater à la prochaine promotion <svg aria-hidden="true" focusable="false"><use href="#evo-i-chevron"></use></svg></a>
         <p class="evo-cta__sub">Un échange de 30 minutes avec Greg. Gratuit, sans dossier à préparer.</p>
         <p class="evo-cta__reassure">Sans engagement. Échange confidentiel. Réponse claire sous 48h, oui ou non.</p>
       </div>
     </div>
 
-    <!-- Photo provisoire (Unsplash, licence libre), à remplacer par une vraie photo Evø. Décorative, donc alt vide. -->
-    <div class="evo-hero__visual" aria-hidden="true">
-      <picture>
-        <source srcset="../assets/img/hero-echange.webp" type="image/webp">
-        <img src="../assets/img/hero-echange.jpg" alt="" width="1200" height="1400" decoding="async" fetchpriority="high">
-      </picture>
-    </div>
+    <!-- Réassurance secondaire, à la place de la ligne « partenaires » du pattern d'origine -->
+    <div class="evo-hero__trust evo-hero__anim evo-hero__anim--5">
+      <p>Pas besoin d'être une startup ni de lever des millions. On travaille avec des TPE et des PME qui ont des vrais clients et des vrais problèmes.</p>
+      <p>Vous restez dirigeant, majoritaire, et maître de vos décisions du premier au dernier jour.</p>
     </div>
 
     <ul class="evo-benefits">
@@ -610,12 +588,7 @@ main:focus{outline:none}
       </li>
     </ul>
 
-    <div class="evo-hero__trust">
-      <p>Pas besoin d'être une startup ni de lever des millions. On travaille avec des TPE et des PME qui ont des vrais clients et des vrais problèmes.</p>
-      <p>Vous restez dirigeant, majoritaire, et maître de vos décisions du premier au dernier jour.</p>
-    </div>
-
-    <!-- Suite de l'urgence datée : la première phrase est dans la pastille, en haut du hero -->
+    <!-- Suite de l'urgence datée : la première phrase est dans le badge, en haut du hero -->
     <p class="evo-hero__urgency">Deux promotions par an, pas une de plus.</p>
   </div>
 </section>
@@ -1575,27 +1548,6 @@ main:focus{outline:none}
       if (!started) { started = true; track('form_start', {}); }
     });
 
-    /* Capsule du hero : même CTA que les autres. L'email saisi est reporté dans le formulaire, puis on y amène le dirigeant. */
-    var capsule = doc.getElementById('evo-capsule');
-    var capsuleEmail = doc.getElementById('evo-capsule-email');
-    var capsuleBtn = doc.getElementById('cta-hero');
-    if (capsule && capsuleEmail) {
-      capsuleEmail.addEventListener('input', function () {
-        if (!started) { started = true; track('form_start', { source: 'hero' }); }
-      });
-      capsule.addEventListener('submit', function (ev) {
-        ev.preventDefault();
-        var value = clean(capsuleEmail.value);
-        var target = doc.getElementById('evo-email');
-        /* Aucune donnée personnelle dans le tracking, seulement le fait qu'un email a été saisi */
-        track('cta_click', { id: 'cta-hero', label: clean(capsuleBtn ? capsuleBtn.textContent : ''), email_saisi: !!value });
-        if (value && target) { target.value = value; }
-        form.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-        var first = doc.getElementById('evo-nom');
-        if (first) { first.focus({ preventScroll: true }); }
-      });
-    }
-
     var showConfirmation = function () {
       form.hidden = true;
       if (confirmBox) { confirmBox.hidden = false; confirmBox.focus(); }
@@ -1628,7 +1580,7 @@ main:focus{outline:none}
         effectif: form.elements.effectif.value,
         chiffre_affaires: form.elements.chiffre_affaires.value,
         blocage: clean(form.elements.blocage.value),
-        page: 'maquette-b2-capsule',
+        page: 'maquette-b3-centre',
         envoye_le: new Date().toISOString()
       };
 
