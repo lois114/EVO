@@ -39,6 +39,17 @@ Joueuse et décalée, sans perdre le sérieux des chiffres. Références : Daphn
 Beaucoup de JetBrains Mono, étiquettes, cartes arrondies en bento, fiche « promotion » dans le hero, objections en conversation, barre de candidature fixe en bas sur mobile.
 Risque pris : le mono très présent, façon carnet de bord.
 
+## Variantes de hero à partir de la direction B
+
+Copies de `b-vert-profond.html`. Tout est identique à B, sauf le haut de page. Les composants 21st.dev fournis sont en React et Tailwind : seul le pattern est repris, réécrit sans dépendance.
+
+| Fichier | Pattern 21st.dev | Ce qui change par rapport à B |
+|---|---|---|
+| `b1-deux-colonnes.html` | Hero Fashion (Kokonut UI) | Hero en 2 colonnes sur desktop. À gauche, accroche, H1, sous-titre et CTA répartis sur la hauteur. À droite, une carte monogramme `ø` doré (à la place de la photo du pattern) qui porte « Faire *évoluer.* » et l'urgence datée. Halo doré flou derrière la carte. Le `ø` en filigrane disparaît. |
+| `b2-capsule.html` | Hero Section 6 (Tailark) | Filet pointillé sous le header. Pastille « Promotion [nom] · 100 places » au-dessus du titre, H1 plus compact, texte centré sur mobile et tablette. Le CTA devient une capsule champ email + bouton : l'email est reporté dans le formulaire `#candidater`, rien n'est envoyé depuis le hero. À droite sur desktop, aperçu décoratif du parcours (frise + étapes), masqué aux lecteurs d'écran. |
+
+Non repris des patterns d'origine, car contraires à `CLAUDE.md` : menu de navigation, liens sortants, second bouton, photo (aucun visuel photo disponible).
+
 ## Règles communes aux 3 maquettes
 - Un fichier HTML autonome par maquette, CSS et JS en ligne pour que la maquette se partage en un fichier. L'arborescence `/css` et `/js` de `CLAUDE.md` viendra avec la direction retenue.
 - Tokens de `CLAUDE.md` uniquement, mode sombre compris.
